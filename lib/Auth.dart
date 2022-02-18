@@ -14,7 +14,7 @@ class _AuthPageState extends State<AuthPage> {
     return Scaffold(
       backgroundColor: CustomColors.MAIN_COLOR,
       body: Container(
-        margin: const EdgeInsets.all(60),
+        margin: const EdgeInsets.all(30),
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
