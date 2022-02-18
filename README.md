@@ -1,4 +1,4 @@
-# cube
+# Flutter CUBE
 
 A new Flutter project.
 
