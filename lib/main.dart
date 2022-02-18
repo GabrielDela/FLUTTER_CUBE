@@ -1,7 +1,5 @@
-import 'package:cube/Auth.dart';
-import 'package:cube/Colors.dart';
+import 'package:cube/pages/page_auth.dart';
 import 'package:flutter/material.dart';
-
 
 void main() {
   runApp(const MyApp());
