@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'package:cube/class/HttpClient.dart';
+
 class AuthController {
   static String accessToken = "";
   static String refreshToken = "";
   static late dynamic user;
-  static String base_url = "https://awake-familiar-humerus.glitch.me/";
+  static String base_url = HttpClient.url;
 
   static dynamic header = <String, String>{
     'Content-Type': 'application/json; charset=UTF-8',
@@ -43,8 +45,12 @@ class AuthController {
   static Future<bool> me() async {
     dynamic response =
         await http.get(Uri.parse(base_url + "auth/me"), headers: header);
-
     print(response.body);
-    return true;
+    if(response.statusCode == 200){
+      user = jsonDecode(response.body);
+      return true;
+    }
+    
+    return false;
   }
 }

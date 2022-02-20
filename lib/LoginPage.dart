@@ -1,4 +1,6 @@
 import 'package:cube/class/AuthController.dart';
+import 'package:cube/FriendsPage.dart';
+
 import 'package:cube/class/CustomColor.dart';
 import 'package:flutter/material.dart';
 
@@ -149,7 +151,19 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
                     ),
-                    onPressed: () => { login() },
+                    onPressed: () => { 
+                      login().then(() => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const FriendsPage()),
+                          ),
+                      })
+
+
+                      // if(login()){
+                        
+                      // } 
+                      },
                     child: const Text('Suivant', style: TextStyle(color: Colors.black, fontSize: 18),),
                   ),
                 ),
@@ -201,20 +215,24 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  login() async {
+  Future<bool> login() async {
     bool response = false;
     response = await AuthController.login(email, password);
     if(response){
       response = await AuthController.me();
-      if(response){
+      if(response){ //On a les info du mec login dans la variable AuthController.user
         print("Logged in");
+        return true;
       }
       else{
         print("N'arrive pas a retrouver l'utilisateur en bdd ?");
+        return false;
       }
     }
     else{
       print("Pas log pas pas bon credentials");
+      return false;
     }
+    return false;
   }
 }
