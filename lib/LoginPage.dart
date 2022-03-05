@@ -1,3 +1,5 @@
+import 'package:cube/DrawerComponent.dart';
+import 'package:cube/LayoutComponent.dart';
 import 'package:cube/class/AuthController.dart';
 import 'package:cube/class/CustomColor.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +18,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return LayoutComponent(
+      contentParam: Container(
         color: CustomColors.MAIN_COLOR,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,

@@ -1,4 +1,5 @@
 import 'package:cube/LoginPage.dart';
+import 'package:cube/Router.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'CUBE',
-      home: LoginPage(),
+      home: RouterPage(),
+      // ICI mettez n'importe quel page avec le layoutCompoenent en base comme widget et vous pourrez naviguer partout
       debugShowCheckedModeBanner: false,
     );
   }
