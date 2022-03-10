@@ -1,5 +1,7 @@
 import 'package:cube/DrawerComponent.dart';
+import 'package:cube/HomePage.dart';
 import 'package:cube/LayoutComponent.dart';
+import 'package:cube/Router.dart';
 import 'package:cube/class/AuthController.dart';
 import 'package:cube/class/CustomColor.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +20,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutComponent(
-      contentParam: Container(
+    return Scaffold(
+      body: Container(
         color: CustomColors.MAIN_COLOR,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -209,7 +211,10 @@ class _LoginPageState extends State<LoginPage> {
     if(response){
       response = await AuthController.me();
       if(response){
-        print("Logged in");
+        Navigator.push(
+          context,
+          new MaterialPageRoute(builder: (context) => HomePage()),
+        );
       }
       else{
         print("N'arrive pas a retrouver l'utilisateur en bdd ?");

@@ -6,7 +6,7 @@ class AuthController {
   static String accessToken = "";
   static String refreshToken = "";
   static late dynamic user;
-  static String base_url = "https://awake-familiar-humerus.glitch.me/";
+  static String base_url = "https://cube-api.glitch.me/api/";
 
   static dynamic header = <String, String>{
     'Content-Type': 'application/json; charset=UTF-8',
