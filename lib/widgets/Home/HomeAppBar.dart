@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../classes/couleurs/classe_colors.dart';
+import '../../class/classe_colors.dart';
 
 class HomeAppBar extends StatefulWidget with PreferredSizeWidget {
   const HomeAppBar({Key? key}) : super(key: key);

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../classes/couleurs/classe_colors.dart';
+import '../../class/classe_colors.dart';
 
 class HomeBottomNavigationBar extends StatefulWidget {
-  int selectedIndex;
-  HomeBottomNavigationBar(
-      {Key? key, int? selectedIndex}){
-    selectedIndex = selectedIndex;
-  }: super(key: key);
+  HomeBottomNavigationBar({Key? key}) : super(key: key);
 
   @override
   _HomeBottomNavigationBarState createState() =>
@@ -44,9 +40,9 @@ class _HomeBottomNavigationBarState extends State<HomeBottomNavigationBar> {
           backgroundColor: CustomColors.MAIN_COLOR,
         ),
       ],
-      currentIndex: _selectedIndex,
+      // currentIndex: _selectedIndex,
       selectedItemColor: CustomColors.BOTTOMNAV_ITEMS_COLOR,
-      onTap: _onItemTapped,
+      // onTap: _onItemTapped,
     );
   }
 }
