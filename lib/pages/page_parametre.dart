@@ -13,6 +13,8 @@ class PageSettings extends StatefulWidget {
 class _PageSettingsState extends State<PageSettings> {
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -67,7 +69,7 @@ class _PageSettingsState extends State<PageSettings> {
                 children: [
                   Flexible(
                     child: Container(
-                      width: 300,
+                      width: queryData.size.width * 0.8,
                       padding: EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -89,7 +91,7 @@ class _PageSettingsState extends State<PageSettings> {
                   ),
                   Flexible(
                       child: Container(
-                    width: 300,
+                    width: queryData.size.width * 0.8,
                     padding: EdgeInsets.only(left: 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -109,7 +111,7 @@ class _PageSettingsState extends State<PageSettings> {
                   )),
                   Flexible(
                     child: Container(
-                      width: 300,
+                      width: queryData.size.width * 0.8,
                       padding: EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -170,7 +172,7 @@ class _PageSettingsState extends State<PageSettings> {
                   ),
                   Flexible(
                     child: Container(
-                      width: 300,
+                      width: queryData.size.width * 0.8,
                       padding: EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -192,7 +194,7 @@ class _PageSettingsState extends State<PageSettings> {
                   ),
                   Flexible(
                     child: Container(
-                      width: 300,
+                      width: queryData.size.width * 0.8,
                       padding: EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -237,7 +239,7 @@ class _PageSettingsState extends State<PageSettings> {
             ),
             Container(
               height: 150,
-              width: 500,
+              width: queryData.size.width * 0.9, //500,
               color: Colors.white,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

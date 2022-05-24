@@ -46,6 +46,8 @@ class _PageProfil2State extends State<PageProfil2> {
   ];
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profil Ami"),
@@ -137,7 +139,7 @@ class _PageProfil2State extends State<PageProfil2> {
                         width: 40,
                       ),
                       SizedBox(
-                        width: 300,
+                        width: queryData.size.width * 0.7,
                         height: 100,
                         child: Text(
                           "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters",

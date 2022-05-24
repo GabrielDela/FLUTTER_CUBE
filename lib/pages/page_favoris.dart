@@ -46,6 +46,8 @@ class _PageFavorisState extends State<PageFavoris> {
   ];
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Mes Favoris"),
@@ -149,7 +151,7 @@ class _PageFavorisState extends State<PageFavoris> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 300,
+                      width: queryData.size.width * 0.9,
                       height: 100,
                       child: Text(
                         ressource["description"],

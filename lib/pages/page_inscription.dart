@@ -13,6 +13,8 @@ class PageSubscribe extends StatefulWidget {
 class _PageSubscribeState extends State<PageSubscribe> {
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -52,7 +54,7 @@ class _PageSubscribeState extends State<PageSubscribe> {
                 children: [
                   Flexible(
                     child: Container(
-                      width: 300,
+                      width: queryData.size.width * 0.7,
                       padding: EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -74,7 +76,7 @@ class _PageSubscribeState extends State<PageSubscribe> {
                   ),
                   Flexible(
                     child: Container(
-                      width: 300,
+                      width: queryData.size.width * 0.6,
                       padding: EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -96,7 +98,7 @@ class _PageSubscribeState extends State<PageSubscribe> {
                   ),
                   Flexible(
                       child: Container(
-                    width: 300,
+                    width: queryData.size.width * 0.6,
                     padding: EdgeInsets.only(left: 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -116,7 +118,7 @@ class _PageSubscribeState extends State<PageSubscribe> {
                   )),
                   Flexible(
                     child: Container(
-                      width: 300,
+                      width: queryData.size.width * 0.6,
                       padding: EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -161,7 +163,7 @@ class _PageSubscribeState extends State<PageSubscribe> {
                   ),
                   Flexible(
                     child: Container(
-                      width: 300,
+                      width: queryData.size.width * 0.8,
                       padding: EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -183,7 +185,7 @@ class _PageSubscribeState extends State<PageSubscribe> {
                   ),
                   Flexible(
                     child: Container(
-                      width: 300,
+                      width: queryData.size.width * 0.8,
                       padding: EdgeInsets.only(left: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,

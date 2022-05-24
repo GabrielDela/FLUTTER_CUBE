@@ -35,6 +35,8 @@ class _PageMonProfilState extends State<PageMonProfil> {
   ];
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Mes Amis"),
@@ -95,7 +97,7 @@ class _PageMonProfilState extends State<PageMonProfil> {
                       ]),
                       Row(children: [
                         SizedBox(
-                          width: 150,
+                          width: queryData.size.width * 0.7,
                           child: Text(
                             "Contrary to popular belief, Lorem Ipsum is not simply random text in Virginia, looked up one of the more obscure Latin words",
                             style: TextStyle(color: Colors.white, fontSize: 12),

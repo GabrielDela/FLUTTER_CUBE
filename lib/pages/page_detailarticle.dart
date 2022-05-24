@@ -57,6 +57,8 @@ class _PageArticleState extends State<PageArticle> {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Article"),
@@ -128,7 +130,7 @@ class _PageArticleState extends State<PageArticle> {
                   ),
                   Container(
                     height: 250,
-                    width: 300,
+                    width: queryData.size.width * 0.8,
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
@@ -143,7 +145,7 @@ class _PageArticleState extends State<PageArticle> {
                     height: 15,
                   ),
                   SizedBox(
-                    width: 300,
+                    width: queryData.size.width * 0.8,
                     height: 150,
                     child: Text(
                       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare est diam, et commodo ipsum egestas et. Suspendisse id nunc lectus. Donec elementum ipsum quis libero scelerisque, eu consequat enim viverra. Curabitur euismod fringilla purus cursus ultricies. Maecenas porta lacinia nisl et efficitur. Etiam hendrerit nec risus at laoreet. Fusce vitae sagittis diam, et consequat nulla.",
@@ -160,7 +162,7 @@ class _PageArticleState extends State<PageArticle> {
                   ),
                   Container(
                     height: 150,
-                    width: 300,
+                    width: queryData.size.width * 0.8,
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
@@ -175,7 +177,7 @@ class _PageArticleState extends State<PageArticle> {
                     height: 15,
                   ),
                   SizedBox(
-                    width: 300,
+                    width: queryData.size.width * 0.8,
                     height: 200,
                     child: Text(
                       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare est diam, et commodo ipsum egestas et. Suspendisse id nunc lectus. Donec elementum ipsum quis libero scelerisque, eu consequat enim viverra. Curabitur euismod fringilla purus cursus ultricies. Maecenas porta lacinia nisl et efficitur. Etiam hendrerit nec risus at laoreet. Fusce vitae sagittis diam, et consequat nulla.",

@@ -77,8 +77,11 @@ class _PageActuState extends State<PageActu> {
       'like': 7
     },
   ];
+
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Fil d'Actualité"),
@@ -182,7 +185,7 @@ class _PageActuState extends State<PageActu> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 300,
+                      width: queryData.size.width * 0.9, //300,
                       height: 100,
                       child: Text(
                         ressource["description"],

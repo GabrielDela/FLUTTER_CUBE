@@ -12,6 +12,8 @@ class PageEditProfil extends StatefulWidget {
 class _PageEditProfilState extends State<PageEditProfil> {
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Editer Profil @Pseudo"),
