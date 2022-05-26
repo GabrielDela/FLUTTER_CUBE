@@ -12,6 +12,7 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
       resizeToAvoidBottomInset: false,
       backgroundColor: CustomColors.MAIN_PURPLE,
       body: Container(

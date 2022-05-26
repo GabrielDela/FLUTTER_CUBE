@@ -16,6 +16,8 @@ class _PageSettingsState extends State<PageSettings> {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
     return Scaffold(
+      //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Gestion des paramètres"),

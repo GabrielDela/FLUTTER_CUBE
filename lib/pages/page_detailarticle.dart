@@ -60,6 +60,8 @@ class _PageArticleState extends State<PageArticle> {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
     return Scaffold(
+      //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Article"),
         centerTitle: true,

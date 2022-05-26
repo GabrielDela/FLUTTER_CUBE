@@ -28,6 +28,8 @@ class _PageHomeState extends State<PageHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
+      resizeToAvoidBottomInset: false,
       drawer: Drawer(
         backgroundColor: CustomColors.MAIN_PURPLE,
         child: ListView(

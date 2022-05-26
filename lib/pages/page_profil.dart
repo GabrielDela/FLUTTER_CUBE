@@ -47,6 +47,8 @@ class _PageProfilState extends State<PageProfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Mon Profil"),
         centerTitle: true,

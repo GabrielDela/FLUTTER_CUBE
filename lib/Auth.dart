@@ -1,4 +1,4 @@
-import 'package:cube/Colors.dart';
+import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {
@@ -12,7 +12,7 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors.MAIN_COLOR,
+      backgroundColor: CustomColors.MAIN_PURPLE,
       body: Container(
         margin: const EdgeInsets.all(30),
         width: MediaQuery.of(context).size.width,
@@ -21,9 +21,17 @@ class _AuthPageState extends State<AuthPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.only( bottom: 40),
+              padding: const EdgeInsets.only(bottom: 40),
               width: MediaQuery.of(context).size.width,
-              child: const Text("Connectez-vous à CUBE", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w600, letterSpacing: 2), textAlign: TextAlign.center,),
+              child: const Text(
+                "Connectez-vous à CUBE",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 2),
+                textAlign: TextAlign.center,
+              ),
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 20),
@@ -31,38 +39,41 @@ class _AuthPageState extends State<AuthPage> {
               height: 45,
               child: OutlinedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  side: MaterialStateProperty.all(
-                      const BorderSide(
-                          color: Colors.black87,
-                          width: 1,
-                          style: BorderStyle.solid
-                      )
-                  ),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  side: MaterialStateProperty.all(const BorderSide(
+                      color: Colors.black87,
+                      width: 1,
+                      style: BorderStyle.solid)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
                 ),
                 onPressed: () => {},
-                child: const Text('Se connecter avec Google', style: TextStyle(color: Colors.black, fontSize: 18),),
+                child: const Text(
+                  'Se connecter avec Google',
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                ),
               ),
             ),
-
             Container(
               width: MediaQuery.of(context).size.width,
               height: 45,
               child: OutlinedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  side: MaterialStateProperty.all(
-                      const BorderSide(
-                          color: Colors.black87,
-                          width: 1,
-                          style: BorderStyle.solid
-                      )
-                  ),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  side: MaterialStateProperty.all(const BorderSide(
+                      color: Colors.black87,
+                      width: 1,
+                      style: BorderStyle.solid)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
                 ),
                 onPressed: () => {},
-                child: const Text('Se connecter avec Apple', style: TextStyle(color: Colors.black, fontSize: 18),),
+                child: const Text(
+                  'Se connecter avec Apple',
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                ),
               ),
             ),
             Container(
@@ -77,7 +88,10 @@ class _AuthPageState extends State<AuthPage> {
                     color: Colors.white10,
                     width: MediaQuery.of(context).size.width / 4,
                   ),
-                  const Text('OU', style: TextStyle(color: Colors.white54, fontSize: 18),),
+                  const Text(
+                    'OU',
+                    style: TextStyle(color: Colors.white54, fontSize: 18),
+                  ),
                   Container(
                     height: 2,
                     color: Colors.white10,
@@ -89,7 +103,8 @@ class _AuthPageState extends State<AuthPage> {
             Container(
               margin: const EdgeInsets.only(top: 5, bottom: 15),
               child: const TextField(
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54, width: 2.0),
@@ -102,11 +117,11 @@ class _AuthPageState extends State<AuthPage> {
                 ),
               ),
             ),
-
             Container(
               margin: const EdgeInsets.only(top: 0, bottom: 15),
               child: const TextField(
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54, width: 2.0),
@@ -125,18 +140,20 @@ class _AuthPageState extends State<AuthPage> {
               height: 45,
               child: OutlinedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  side: MaterialStateProperty.all(
-                      const BorderSide(
-                          color: Colors.black87,
-                          width: 1,
-                          style: BorderStyle.solid
-                      )
-                  ),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  side: MaterialStateProperty.all(const BorderSide(
+                      color: Colors.black87,
+                      width: 1,
+                      style: BorderStyle.solid)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
                 ),
                 onPressed: () => {},
-                child: const Text('Suivant', style: TextStyle(color: Colors.black, fontSize: 18),),
+                child: const Text(
+                  'Suivant',
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                ),
               ),
             ),
             Container(
@@ -145,23 +162,25 @@ class _AuthPageState extends State<AuthPage> {
               height: 45,
               child: OutlinedButton(
                 style: ButtonStyle(
-                  side: MaterialStateProperty.all(
-                      const BorderSide(
-                          color: Colors.white30,
-                          width: 2,
-                          style: BorderStyle.solid
-                      )
-                  ),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
+                  side: MaterialStateProperty.all(const BorderSide(
+                      color: Colors.white30,
+                      width: 2,
+                      style: BorderStyle.solid)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
                 ),
                 onPressed: () => {},
-                child: const Text('Mot de passe oublié ?', style: TextStyle(color: Colors.white54, fontSize: 18),),
+                child: const Text(
+                  'Mot de passe oublié ?',
+                  style: TextStyle(color: Colors.white54, fontSize: 18),
+                ),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(top: 20),
               width: MediaQuery.of(context).size.width,
-              child: const Text("Vous n'avez pas de compte ?", style: TextStyle(color: Colors.white54, fontSize: 18)),
+              child: const Text("Vous n'avez pas de compte ?",
+                  style: TextStyle(color: Colors.white54, fontSize: 18)),
             ),
             Container(
               margin: const EdgeInsets.only(top: 5),
@@ -170,13 +189,13 @@ class _AuthPageState extends State<AuthPage> {
                 onTap: () {
                   null;
                 },
-                child: const Text("Inscrivez-vous",
-                    style: TextStyle(
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
-                        fontSize: 16
-                    ),
-                  ),
+                child: const Text(
+                  "Inscrivez-vous",
+                  style: TextStyle(
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                      fontSize: 16),
+                ),
               ),
             ),
           ],

@@ -15,6 +15,8 @@ class _PageEditProfilState extends State<PageEditProfil> {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
     return Scaffold(
+      //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Editer Profil @Pseudo"),
         titleTextStyle: TextStyle(color: CustomColors.MAIN_PURPLE),

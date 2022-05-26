@@ -49,6 +49,8 @@ class _PageProfil2State extends State<PageProfil2> {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
     return Scaffold(
+      //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Profil Ami"),
         centerTitle: true,
