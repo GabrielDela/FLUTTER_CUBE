@@ -1,20 +1,6 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:flutter/material.dart';
 
-class Ami {
-  String firstName;
-  String lastName;
-  String description;
-  String image;
-
-  //constructeur
-  Ami(
-      {required this.firstName,
-      required this.lastName,
-      required this.description,
-      required this.image});
-}
-
 class PageAmi extends StatefulWidget {
   const PageAmi({Key? key}) : super(key: key);
 
@@ -120,69 +106,6 @@ class _PageAmiState extends State<PageAmi> {
       'description': 'Amie',
       'image': "assets/images/avatarfemale.jpg"
     },
-  ];
-
-  List<Ami> listeAmi = [
-    Ami(
-        firstName: "Roberts",
-        lastName: "Nathan",
-        description: "frère",
-        image: "assets/images/avatarmale.jpg"),
-    Ami(
-        firstName: "Bessie",
-        lastName: "Cooper",
-        description: "amie",
-        image: "assets/images/avatarfemale.jpg"),
-    Ami(
-        firstName: "Roberts",
-        lastName: "Nathan",
-        description: "frère",
-        image: "assets/images/avatarmale.jpg"),
-    Ami(
-        firstName: "Bessie",
-        lastName: "Cooper",
-        description: "amie",
-        image: "assets/images/avatarfemale.jpg"),
-    Ami(
-        firstName: "Roberts",
-        lastName: "Nathan",
-        description: "frère",
-        image: "assets/images/avatarmale.jpg"),
-    Ami(
-        firstName: "Bessie",
-        lastName: "Cooper",
-        description: "amie",
-        image: "assets/images/avatarfemale.jpg"),
-    Ami(
-        firstName: "Roberts",
-        lastName: "Nathan",
-        description: "frère",
-        image: "assets/images/avatarmale.jpg"),
-    Ami(
-        firstName: "Bessie",
-        lastName: "Cooper",
-        description: "amie",
-        image: "assets/images/avatarfemale.jpg"),
-    Ami(
-        firstName: "Roberts",
-        lastName: "Nathan",
-        description: "frère",
-        image: "assets/images/avatarmale.jpg"),
-    Ami(
-        firstName: "Bessie",
-        lastName: "Cooper",
-        description: "amie",
-        image: "assets/images/avatarfemale.jpg"),
-    Ami(
-        firstName: "Roberts",
-        lastName: "Nathan",
-        description: "frère",
-        image: "assets/images/avatarmale.jpg"),
-    Ami(
-        firstName: "Bessie",
-        lastName: "Cooper",
-        description: "amie",
-        image: "assets/images/avatarfemale.jpg"),
   ];
 
   //pour la bare de recherche
