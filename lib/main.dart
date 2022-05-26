@@ -1,6 +1,6 @@
 import 'package:cube/pages/page_actualite.dart';
 import 'package:cube/pages/page_ami.dart';
-import 'package:cube/pages/page_amiV2.dart';
+import 'package:cube/pages/page_ami.dart';
 import 'package:cube/pages/page_amitest1.dart';
 import 'package:cube/pages/page_amitest2.dart';
 import 'package:cube/pages/page_auth.dart';

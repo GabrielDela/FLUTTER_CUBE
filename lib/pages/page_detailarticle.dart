@@ -11,50 +11,6 @@ class PageArticle extends StatefulWidget {
 }
 
 class _PageArticleState extends State<PageArticle> {
-  //ressource passée en paramètre pour pouvoir l'afficher : cette fonction est à repenser et ré écrire
-  //dans le cas ou on reçoit un fichier json modulaire (gérer avec des if chaqué clé json avec un pour chaque
-  // clé du fichier json pour vérifier si elles contiennent texte ou article)
-  // pb ça risque d'être gourmand pour afficher une ressource :
-  // en effet : pour chaque widget à afficher on va devoir appeler la fonction qui na nous retourner un widget
-  // donc re parcourir toute la liste json  + repasser par tout les if : peux de perf.
-  Widget getWidget(int number, RessourceJson ressource) {
-    switch (number) {
-      case 1:
-        {
-          // titre
-          return Text(ressource.titre);
-        }
-      case 2:
-        {
-          // entête d'article
-          return Text(ressource.titre);
-        }
-      case 3:
-        {
-          // image principale
-          return Text("ImagePrincipale");
-        }
-      case 4:
-        {
-          // image secondaire
-          return Text("ImageSecondaire");
-        }
-      case 5:
-        {
-          return Text("SimpleTexte");
-        }
-      default:
-        {
-          return SizedBox(
-            width: 0,
-            height: 0,
-          );
-        }
-    }
-
-    return Text("aaaaa");
-  }
-
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
