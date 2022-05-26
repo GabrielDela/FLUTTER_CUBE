@@ -9,7 +9,7 @@ class PageAmi extends StatefulWidget {
 }
 
 class _PageAmiState extends State<PageAmi> {
-  final List ListeAmiList = [
+  final List ListeAmi = [
     {
       'firstName': 'Roberts',
       'lastName': 'Nathan',
@@ -213,7 +213,7 @@ class _PageAmiState extends State<PageAmi> {
                         // mainAxisSize: MainAxisSize.min,
                         //remplacer la col par un container pour avoir le SizedBox ?
                         children: [
-                          for (var ami in ListeAmiList)
+                          for (var ami in ListeAmi)
                             if (search == "" ||
                                 ami['lastName'].contains(search) ||
                                 ami['firstName'].contains(search))
@@ -259,7 +259,6 @@ class _PageAmiState extends State<PageAmi> {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10)),
                                         ),
-                                        //penser a rajouter fonction de search ICI
                                         child: ElevatedButton(
                                           onPressed: () {},
                                           child: Icon(
