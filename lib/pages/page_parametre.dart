@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class PageSettings extends StatefulWidget {
-  const PageSettings({Key? key}) : super(key: key);
+class PageParametre extends StatefulWidget {
+  const PageParametre({Key? key}) : super(key: key);
 
   @override
-  _PageSettingsState createState() => _PageSettingsState();
+  _PageParametreState createState() => _PageParametreState();
 }
 
-class _PageSettingsState extends State<PageSettings> {
+class _PageParametreState extends State<PageParametre> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;

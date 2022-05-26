@@ -15,14 +15,14 @@ class Ami {
       required this.image});
 }
 
-class PageFriend extends StatefulWidget {
-  const PageFriend({Key? key}) : super(key: key);
+class PageAmi extends StatefulWidget {
+  const PageAmi({Key? key}) : super(key: key);
 
   @override
-  _PageFriendState createState() => _PageFriendState();
+  _PageAmiState createState() => _PageAmiState();
 }
 
-class _PageFriendState extends State<PageFriend> {
+class _PageAmiState extends State<PageAmi> {
   final List ListeAmiList = [
     {
       'firstName': 'Roberts',

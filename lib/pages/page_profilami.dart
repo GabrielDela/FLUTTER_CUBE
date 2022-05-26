@@ -1,14 +1,14 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:flutter/material.dart';
 
-class PageProfil2 extends StatefulWidget {
-  const PageProfil2({Key? key}) : super(key: key);
+class PageProfilAmi extends StatefulWidget {
+  const PageProfilAmi({Key? key}) : super(key: key);
 
   @override
-  _PageProfil2State createState() => _PageProfil2State();
+  _PageProfilAmiState createState() => _PageProfilAmiState();
 }
 
-class _PageProfil2State extends State<PageProfil2> {
+class _PageProfilAmiState extends State<PageProfilAmi> {
   final List listeRessource = [
     {
       'nom': "Nathan Roberts",

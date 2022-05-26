@@ -3,14 +3,14 @@ import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class PageSubscribe extends StatefulWidget {
-  const PageSubscribe({Key? key}) : super(key: key);
+class PageInscription extends StatefulWidget {
+  const PageInscription({Key? key}) : super(key: key);
 
   @override
-  _PageSubscribeState createState() => _PageSubscribeState();
+  _PageInscriptionState createState() => _PageInscriptionState();
 }
 
-class _PageSubscribeState extends State<PageSubscribe> {
+class _PageInscriptionState extends State<PageInscription> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
