@@ -15,7 +15,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text("Fil d'actualité"),
+      title: const Text("R CUBE"),
       centerTitle: true,
       backgroundColor: CustomColors.MAIN_PURPLE,
       leading: Builder(
