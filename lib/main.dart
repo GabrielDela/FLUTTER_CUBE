@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'CUBE',
       // home: PageHome(),
-      home: PageAuth(),
+      home: PageProfilAmi(),
       debugShowCheckedModeBanner: false,
     );
   }
