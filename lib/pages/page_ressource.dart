@@ -38,6 +38,19 @@ class _PageRessourcesState extends State<PageRessources> {
           ),
         ],
       ),
+      body: Column(
+        children: [
+          Quill.QuillToolbar.basic(controller: _controller),
+          Expanded(
+            child: Container(
+              child: Quill.QuillEditor.basic(
+                controller: _controller,
+                readOnly: false, // true for view only mode
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
