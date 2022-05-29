@@ -1,5 +1,8 @@
+import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:cube/widgets/Home/HomeAppBar.dart';
 import 'package:flutter/material.dart';
+// l'utilisation de l'alias est obligatoire sinon il y a confusion entre le widget Text natif de flutter et le widget Text de Quill
+import 'package:flutter_quill/flutter_quill.dart' as Quill;
 
 class PageRessources extends StatefulWidget {
   const PageRessources({Key? key}) : super(key: key);
@@ -9,38 +12,30 @@ class PageRessources extends StatefulWidget {
 }
 
 class _PageRessourcesState extends State<PageRessources> {
-  String dropdownValue = 'One';
+  //String dropdownValue = 'One';
+  // l'utilisation de l'alias est obligatoire  pour  l'utilisation de tout les widget de quill
+  Quill.QuillController _controller = Quill.QuillController.basic();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Center(
-            child:
-                Text("Création de ressource", style: TextStyle(fontSize: 30)),
-          ),
-          DropdownButton<String>(
-            value: dropdownValue,
-            icon: const Icon(Icons.arrow_downward),
-            elevation: 16,
-            style: const TextStyle(color: Colors.deepPurple),
-            underline: Container(
-              height: 2,
-              color: Colors.deepPurpleAccent,
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: const Text("Ressource"),
+        centerTitle: true,
+        backgroundColor: CustomColors.MAIN_PURPLE,
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 8),
+            child: CircleAvatar(
+              radius: 25,
+              backgroundColor: Colors.transparent,
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/images/avatarmale2.jpg',
+                ),
+              ),
             ),
-            onChanged: (String? newValue) {
-              setState(() {
-                dropdownValue = newValue!;
-              });
-            },
-            items: <String>['One', 'Two', 'Free', 'Four']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          )
+          ),
         ],
       ),
     );
