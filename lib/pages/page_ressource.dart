@@ -18,6 +18,7 @@ class _PageRessourcesState extends State<PageRessources> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Ressource"),
@@ -41,8 +42,25 @@ class _PageRessourcesState extends State<PageRessources> {
       body: Column(
         children: [
           Quill.QuillToolbar.basic(controller: _controller),
+          Container(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.green,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                textStyle:
+                    TextStyle(fontSize: 15, color: CustomColors.MAIN_PURPLE),
+              ),
+              onPressed: () {},
+              child: Text(
+                "Sauvegarder",
+                style: TextStyle(color: CustomColors.MAIN_PURPLE),
+              ),
+            ),
+          ),
           Expanded(
             child: Container(
+              height: 600,
               child: Quill.QuillEditor.basic(
                 controller: _controller,
                 readOnly: false, // true for view only mode

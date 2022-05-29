@@ -1,3 +1,4 @@
+import 'package:cube/pages/page_accueil.dart';
 import 'package:cube/pages/page_actualite.dart';
 import 'package:cube/pages/page_ami.dart';
 import 'package:cube/pages/page_ami.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'CUBE',
       // home: PageHome(),
-      home: PageRessources(),
+      home: PageAccueil(),
       debugShowCheckedModeBanner: false,
     );
   }
