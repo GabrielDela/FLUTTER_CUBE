@@ -1,14 +1,14 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:flutter/material.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key}) : super(key: key);
+class PageAuth extends StatefulWidget {
+  const PageAuth({Key? key}) : super(key: key);
 
   @override
-  _AuthPageState createState() => _AuthPageState();
+  _PageAuthState createState() => _PageAuthState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _PageAuthState extends State<PageAuth> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,31 +56,6 @@ class _AuthPageState extends State<AuthPage> {
                 onPressed: () => {},
                 child: const Text(
                   'Se connecter avec Google',
-                  style: TextStyle(color: Colors.black, fontSize: 18),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 25),
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              child: OutlinedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.only(left: 70, right: 70),
-                  ),
-                  side: MaterialStateProperty.all(const BorderSide(
-                      color: Colors.black87,
-                      width: 1,
-                      style: BorderStyle.solid)),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0))),
-                ),
-                onPressed: () => {},
-                child: const Text(
-                  'Se connecter avec Apple',
                   style: TextStyle(color: Colors.black, fontSize: 18),
                 ),
               ),

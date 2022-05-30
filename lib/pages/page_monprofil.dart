@@ -11,7 +11,7 @@ class PageMonProfil extends StatefulWidget {
 }
 
 class _PageMonProfilState extends State<PageMonProfil> {
-  List<Ressource> listeRessource = [
+  List<Ressource> listeRessource2 = [
     Ressource(
         nomUtilisateur: "Roberts",
         prenomUtilisateur: "Nathan",
