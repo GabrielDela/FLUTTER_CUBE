@@ -1,17 +1,17 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:flutter/material.dart';
 
-class PageActu extends StatefulWidget {
-  const PageActu({Key? key}) : super(key: key);
+class PageFavoris extends StatefulWidget {
+  const PageFavoris({Key? key}) : super(key: key);
 
   @override
-  _PageActuState createState() => _PageActuState();
+  _PageFavorisState createState() => _PageFavorisState();
 }
 
-class _PageActuState extends State<PageActu> {
+class _PageFavorisState extends State<PageFavoris> {
   final List listeRessource = [
     {
-      'nom': "@BessieCoop27",
+      'nom': "@NathRoberts44",
       'category': "Sport",
       'date': '10/10/2022',
       'description':
@@ -22,7 +22,7 @@ class _PageActuState extends State<PageActu> {
       'like': 7
     },
     {
-      'nom': "@BessieCoop27",
+      'nom': "@BessCooper28",
       'category': "Cuisine",
       'date': '08/08/2022',
       'description':
@@ -33,7 +33,7 @@ class _PageActuState extends State<PageActu> {
       'like': 10
     },
     {
-      'nom': "@BessieCoop27",
+      'nom': "@EleanrPena404",
       'category': "Langue",
       'date': '09/09/2022',
       'description':
@@ -42,42 +42,8 @@ class _PageActuState extends State<PageActu> {
       'comment': 22,
       'share': 4,
       'like': 12
-    },
-    {
-      'nom': "@BessieCoop27",
-      'category': "Langue",
-      'date': '09/09/2022',
-      'description':
-          "Suspendisse lacinia, enim non tincidunt faucibus, turpis nulla laoreet erat, vitae commodo metus turpis a felis. .",
-      'image': "assets/images/img3.png",
-      'comment': 22,
-      'share': 4,
-      'like': 12
-    },
-    {
-      'nom': "@BessieCoop27",
-      'category': "Langue",
-      'date': '09/09/2022',
-      'description':
-          "Suspendisse lacinia, enim non tincidunt faucibus, turpis nulla laoreet erat, vitae commodo metus turpis a felis. .",
-      'image': "assets/images/img3.png",
-      'comment': 22,
-      'share': 4,
-      'like': 12
-    },
-    {
-      'nom': "@BessieCoop27",
-      'category': "Sport",
-      'date': '10/10/2022',
-      'description':
-          "Proin id dictum turpis, nec volutpat erat. Donec id ultrices quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;",
-      'image': "assets/images/img1.jpg",
-      'comment': 12,
-      'share': 4,
-      'like': 7
     },
   ];
-
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
@@ -86,7 +52,7 @@ class _PageActuState extends State<PageActu> {
       //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Fil d'Actualité"),
+        title: const Text("Mes Favoris"),
         centerTitle: true,
         backgroundColor: CustomColors.MAIN_PURPLE,
         actions: <Widget>[
@@ -137,7 +103,7 @@ class _PageActuState extends State<PageActu> {
                           color: Colors.white,
                           shape: CircleBorder(),
                           onPressed: () {},
-                          child: Icon(Icons.favorite_border_outlined,
+                          child: Icon(Icons.favorite,
                               color: CustomColors.MAIN_PURPLE, size: 25),
                         ),
                       )
@@ -187,7 +153,7 @@ class _PageActuState extends State<PageActu> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: queryData.size.width * 0.9, //300,
+                      width: queryData.size.width * 0.9,
                       height: 100,
                       child: Text(
                         ressource["description"],

@@ -1,19 +1,17 @@
-import 'package:cube/class/classe_colors.dart';
+import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:flutter/material.dart';
 
-class PageAuth extends StatefulWidget {
-  const PageAuth({Key? key}) : super(key: key);
+class PageAccueil extends StatefulWidget {
+  const PageAccueil({Key? key}) : super(key: key);
 
   @override
-  _PageAuthState createState() => _PageAuthState();
+  _PageAccueilState createState() => _PageAccueilState();
 }
 
-class _PageAuthState extends State<PageAuth> {
+class _PageAccueilState extends State<PageAccueil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
-      resizeToAvoidBottomInset: false,
       backgroundColor: CustomColors.MAIN_PURPLE,
       body: Container(
         margin: const EdgeInsets.all(30),
@@ -23,29 +21,26 @@ class _PageAuthState extends State<PageAuth> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.only(bottom: 50),
+              padding: const EdgeInsets.only(bottom: 40),
               width: MediaQuery.of(context).size.width,
               child: const Text(
                 "Connectez-vous à CUBE",
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 28,
+                    fontSize: 22,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 2),
                 textAlign: TextAlign.center,
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(bottom: 25),
+              margin: const EdgeInsets.only(bottom: 20),
               width: MediaQuery.of(context).size.width,
-              height: 50,
+              height: 45,
               child: OutlinedButton(
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.white),
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.only(left: 70, right: 70),
-                  ),
                   side: MaterialStateProperty.all(const BorderSide(
                       color: Colors.black87,
                       width: 1,
@@ -61,7 +56,28 @@ class _PageAuthState extends State<PageAuth> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 25, bottom: 25),
+              width: MediaQuery.of(context).size.width,
+              height: 45,
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  side: MaterialStateProperty.all(const BorderSide(
+                      color: Colors.black87,
+                      width: 1,
+                      style: BorderStyle.solid)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
+                ),
+                onPressed: () => {},
+                child: const Text(
+                  'Se connecter avec Apple',
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 30, bottom: 25),
               width: MediaQuery.of(context).size.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,7 +104,7 @@ class _PageAuthState extends State<PageAuth> {
               margin: const EdgeInsets.only(top: 5, bottom: 15),
               child: const TextField(
                 style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54, width: 2.0),
@@ -105,7 +121,7 @@ class _PageAuthState extends State<PageAuth> {
               margin: const EdgeInsets.only(top: 0, bottom: 15),
               child: const TextField(
                 style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white54, width: 2.0),
@@ -121,14 +137,11 @@ class _PageAuthState extends State<PageAuth> {
             Container(
               margin: const EdgeInsets.only(top: 20, bottom: 20),
               width: MediaQuery.of(context).size.width,
-              height: 50,
+              height: 45,
               child: OutlinedButton(
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.white),
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.only(left: 70, right: 70),
-                  ),
                   side: MaterialStateProperty.all(const BorderSide(
                       color: Colors.black87,
                       width: 1,
@@ -146,13 +159,9 @@ class _PageAuthState extends State<PageAuth> {
             Container(
               margin: const EdgeInsets.only(bottom: 10),
               width: MediaQuery.of(context).size.width,
-              height: 50,
+              height: 45,
               child: OutlinedButton(
                 style: ButtonStyle(
-                  // backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.only(left: 70, right: 70),
-                  ),
                   side: MaterialStateProperty.all(const BorderSide(
                       color: Colors.white30,
                       width: 2,
