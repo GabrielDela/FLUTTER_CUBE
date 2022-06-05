@@ -3,6 +3,7 @@ import 'package:cube/pages/page_actualite.dart';
 import 'package:cube/pages/page_ami.dart';
 import 'package:cube/pages/page_favoris.dart';
 import 'package:cube/pages/page_profil.dart';
+import 'package:cube/pages/page_ressource.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -99,9 +100,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
               Icons.more_vert,
             ),
             onTap: () {
-              if (kDebugMode) {
-                print("J'appuie");
-              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PageRessources(),
+                ),
+              );
             },
           ),
           ListTile(

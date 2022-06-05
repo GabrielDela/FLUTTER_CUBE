@@ -59,42 +59,6 @@ class _PageHomeState extends State<PageHome> {
         onPageChanged: _onItemTapped,
         controller: _pageController,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: CustomColors.MAIN_PURPLE,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-            tooltip: "Home",
-            backgroundColor: CustomColors.MAIN_PURPLE,
-            activeIcon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_box_outlined),
-            label: 'Ajouter',
-            tooltip: "Ajouter",
-            backgroundColor: CustomColors.MAIN_PURPLE,
-            activeIcon: Icon(Icons.add_box),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_outline_outlined),
-            label: 'Favoris',
-            tooltip: "Favoris",
-            backgroundColor: CustomColors.MAIN_PURPLE,
-            activeIcon: Icon(Icons.bookmark),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Compte',
-            tooltip: "Compte",
-            backgroundColor: CustomColors.MAIN_PURPLE,
-            activeIcon: Icon(Icons.account_circle),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: CustomColors.BOTTOMNAV_ITEMS_COLOR,
-        onTap: onTabTapped,
-      ),
     );
   }
 }

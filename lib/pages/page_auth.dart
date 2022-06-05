@@ -3,6 +3,7 @@ import 'package:cube/controller/authController.dart';
 import 'package:cube/pages/page_accueil.dart';
 import 'package:cube/pages/page_actualite.dart';
 import 'package:cube/pages/page_favoris.dart';
+import 'package:cube/pages/page_home.dart';
 import 'package:flutter/material.dart';
 
 class PageAuth extends StatefulWidget {
@@ -215,7 +216,7 @@ class _PageAuthState extends State<PageAuth> {
       if (response) {
         Navigator.push(
           context,
-          new MaterialPageRoute(builder: (context) => PageFavoris()),
+          new MaterialPageRoute(builder: (context) => PageHome()),
         );
       } else {
         print("N'arrive pas a retrouver l'utilisateur en bdd ?");
