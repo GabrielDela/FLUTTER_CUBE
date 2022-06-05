@@ -8,6 +8,7 @@ import 'package:cube/widgets/Home/HomeBottonNavigationBar.dart';
 import 'package:cube/widgets/Home/HomeDrawer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PageHome extends StatefulWidget {
   const PageHome({Key? key}) : super(key: key);
@@ -17,11 +18,23 @@ class PageHome extends StatefulWidget {
 }
 
 class _PageHomeState extends State<PageHome> {
+  String _token = "";
   int _selectedIndex = 0;
   PageController? _pageController;
 
+  Future<void> _loadToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _token = (prefs.getString('token') ?? ' **** no token **** ');
+      print(
+          "******************************MON TOKEN *************************" +
+              _token);
+    });
+  }
+
   void _onItemTapped(int index) {
     setState(() {
+      _loadToken();
       _selectedIndex = index;
     });
   }

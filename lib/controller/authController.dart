@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController {
   static String token = "";
@@ -20,6 +21,8 @@ class AuthController {
   }
 
   static Future<bool> login(String email, String password) async {
+    final prefs = await SharedPreferences.getInstance();
+
     print(email);
     print(password);
     print(base_url);
@@ -36,6 +39,7 @@ class AuthController {
       print(json);
       if (json != null) {
         token = json["token"];
+        await prefs.setString('token', token);
         setHeader();
         return true;
       }

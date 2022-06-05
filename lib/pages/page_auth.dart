@@ -5,6 +5,7 @@ import 'package:cube/pages/page_actualite.dart';
 import 'package:cube/pages/page_favoris.dart';
 import 'package:cube/pages/page_home.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PageAuth extends StatefulWidget {
   const PageAuth({Key? key}) : super(key: key);
