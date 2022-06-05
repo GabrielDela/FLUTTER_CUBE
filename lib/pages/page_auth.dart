@@ -1,4 +1,8 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
+import 'package:cube/controller/authController.dart';
+import 'package:cube/pages/page_accueil.dart';
+import 'package:cube/pages/page_actualite.dart';
+import 'package:cube/pages/page_favoris.dart';
 import 'package:flutter/material.dart';
 
 class PageAuth extends StatefulWidget {
@@ -9,6 +13,8 @@ class PageAuth extends StatefulWidget {
 }
 
 class _PageAuthState extends State<PageAuth> {
+  String email = "";
+  String password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +92,10 @@ class _PageAuthState extends State<PageAuth> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 5, bottom: 15),
-              child: const TextField(
+              child: TextField(
+                onChanged: (text) {
+                  email = text;
+                },
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
                 decoration: InputDecoration(
@@ -103,7 +112,10 @@ class _PageAuthState extends State<PageAuth> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 0, bottom: 15),
-              child: const TextField(
+              child: TextField(
+                onChanged: (text) {
+                  password = text;
+                },
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
                 decoration: InputDecoration(
@@ -136,7 +148,7 @@ class _PageAuthState extends State<PageAuth> {
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0))),
                 ),
-                onPressed: () => {},
+                onPressed: () => {Login()},
                 child: const Text(
                   'Suivant',
                   style: TextStyle(color: Colors.black, fontSize: 18),
@@ -193,5 +205,23 @@ class _PageAuthState extends State<PageAuth> {
         ),
       ),
     );
+  }
+
+  Login() async {
+    bool response = false;
+    response = await AuthController.login(email, password);
+    if (response) {
+      response = await AuthController.me();
+      if (response) {
+        Navigator.push(
+          context,
+          new MaterialPageRoute(builder: (context) => PageFavoris()),
+        );
+      } else {
+        print("N'arrive pas a retrouver l'utilisateur en bdd ?");
+      }
+    } else {
+      print("Pas log pas pas bon credentials");
+    }
   }
 }
