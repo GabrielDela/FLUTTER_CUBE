@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cube/classes/modeles/modele_Utilisateur.dart';
+import 'package:cube/modeles/modele_Relation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,10 +25,6 @@ class AuthController {
   static Future<bool> login(String email, String password) async {
     final prefs = await SharedPreferences.getInstance();
 
-    print(email);
-    print(password);
-    print(base_url);
-    print(Uri.parse(base_url + "auth/login"));
     dynamic response = await http.post(Uri.parse(base_url + "auth/login"),
         headers: header,
         body: jsonEncode(<String, String>{
@@ -36,7 +34,6 @@ class AuthController {
 
     if (response.statusCode == 200) {
       dynamic json = jsonDecode(response.body);
-      print(json);
       if (json != null) {
         token = json["token"];
         await prefs.setString('token', token);
@@ -53,5 +50,45 @@ class AuthController {
 
     print(response.body);
     return true;
+  }
+
+  static Future<List<Utilisateur>> getAmis() async {
+    // List ListidAmi = [];
+    List<Relation> listeRelations = [];
+    dynamic response =
+        await http.get(Uri.parse(base_url + "relations"), headers: header);
+    print(response.body);
+    List data = json.decode(response.body);
+    for (var element in data) {
+      Relation relationCourante = new Relation(
+          idRelation: element['_id'],
+          idFrom: element['id_from'],
+          idTo: element['id_to'],
+          typeRelation: element['relation']);
+      listeRelations.add(relationCourante);
+      // ListidAmi.add(element['id_to']);
+    }
+
+    List listeRelationCastee = await listeRelations;
+    List<Utilisateur> listUtilisateur = [];
+
+    for (var relation in listeRelationCastee) {
+      print(relation.idTo);
+      dynamic response = await http
+          .get(Uri.parse(base_url + "users/${relation.idTo}"), headers: header);
+      var json = jsonDecode(response.body);
+      Utilisateur utilisateurCourant = new Utilisateur(
+          id: json['_id'],
+          activated: json['activated'],
+          firtsName: json['firstname'],
+          lastName: json['lastname'],
+          tag: json['tag'],
+          email: json['email'],
+          password: json['password'],
+          role: json['role'],
+          typeRelation: relation.typeRelation);
+      listUtilisateur.add(utilisateurCourant);
+    }
+    return listUtilisateur;
   }
 }

@@ -34,7 +34,6 @@ class _PageHomeState extends State<PageHome> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _loadToken();
       _selectedIndex = index;
     });
   }
@@ -42,6 +41,7 @@ class _PageHomeState extends State<PageHome> {
   @override
   void initState() {
     _pageController = PageController(initialPage: _selectedIndex);
+    _loadToken();
     super.initState();
   }
 

@@ -1,4 +1,8 @@
+import 'dart:ffi';
+
 import 'package:cube/classes/couleurs/classe_colors.dart';
+import 'package:cube/classes/modeles/modele_Utilisateur.dart';
+import 'package:cube/controller/authController.dart';
 import 'package:flutter/material.dart';
 
 class PageAmi extends StatefulWidget {
@@ -9,6 +13,14 @@ class PageAmi extends StatefulWidget {
 }
 
 class _PageAmiState extends State<PageAmi> {
+  AuthController authController = new AuthController();
+  List<Utilisateur> listeDesAmis = [];
+
+  Future<List<Utilisateur>> Ami() async {
+    //listeDesAmis = await AuthController.getAmis();
+    return await AuthController.getAmis();
+  }
+
   final List ListeAmi = [
     {
       'firstName': 'Roberts',
@@ -110,6 +122,20 @@ class _PageAmiState extends State<PageAmi> {
 
   //pour la bare de recherche
   String search = "";
+  @override
+  void initState() {
+    // _loadToken();
+    print("HOURRRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
+    Ami().then((value) {
+      for (var ami in value) {
+        listeDesAmis.add(ami);
+        //print(ami.lastName);
+      }
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
@@ -213,10 +239,10 @@ class _PageAmiState extends State<PageAmi> {
                         // mainAxisSize: MainAxisSize.min,
                         //remplacer la col par un container pour avoir le SizedBox ?
                         children: [
-                          for (var ami in ListeAmi)
+                          for (var ami in listeDesAmis)
                             if (search == "" ||
-                                ami['lastName'].contains(search) ||
-                                ami['firstName'].contains(search))
+                                ami.lastName.contains(search) ||
+                                ami.firtsName.contains(search))
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: 8.0),
                                 child: Container(
@@ -240,17 +266,15 @@ class _PageAmiState extends State<PageAmi> {
                                         backgroundColor: Colors.transparent,
                                         child: ClipOval(
                                           child: Image.asset(
-                                            ami['image'],
+                                            'assets/images/avatarfemale.jpg',
                                           ),
                                         ),
                                       ),
                                       Text(
-                                        ami['firstName'] +
-                                            " " +
-                                            ami['lastName'],
+                                        ami.firtsName + " " + ami.lastName,
                                         style: TextStyle(fontSize: 20),
                                       ),
-                                      Text(ami['description'],
+                                      Text(ami.typeRelation,
                                           style: TextStyle(fontSize: 12)),
                                       Container(
                                         height: 40,
