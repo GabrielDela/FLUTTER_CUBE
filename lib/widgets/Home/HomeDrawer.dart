@@ -2,6 +2,7 @@ import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:cube/pages/page_actualite.dart';
 import 'package:cube/pages/page_ami.dart';
 import 'package:cube/pages/page_favoris.dart';
+import 'package:cube/pages/page_parametre.dart';
 import 'package:cube/pages/page_profil.dart';
 import 'package:cube/pages/page_ressource.dart';
 import 'package:flutter/foundation.dart';
@@ -50,9 +51,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 color: CustomColors.DRAWER_TEXT_COLOR,
               ),
             ),
-            trailing: const Icon(
-              Icons.more_vert,
-            ),
             onTap: () {
               Navigator.push(
                 context,
@@ -72,9 +70,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
               style: TextStyle(
                 color: CustomColors.DRAWER_TEXT_COLOR,
               ),
-            ),
-            trailing: const Icon(
-              Icons.more_vert,
             ),
             onTap: () {
               Navigator.push(
@@ -96,9 +91,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 color: CustomColors.DRAWER_TEXT_COLOR,
               ),
             ),
-            trailing: const Icon(
-              Icons.more_vert,
-            ),
             onTap: () {
               Navigator.push(
                 context,
@@ -118,9 +110,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
               style: TextStyle(
                 color: CustomColors.DRAWER_TEXT_COLOR,
               ),
-            ),
-            trailing: const Icon(
-              Icons.more_vert,
             ),
             onTap: () {
               Navigator.push(
@@ -142,9 +131,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 color: CustomColors.DRAWER_TEXT_COLOR,
               ),
             ),
-            trailing: const Icon(
-              Icons.more_vert,
-            ),
             onTap: () {
               Navigator.push(
                 context,
@@ -154,6 +140,26 @@ class _HomeDrawerState extends State<HomeDrawer> {
               );
             },
           ),
+          ListTile(
+            leading: Icon(
+              Icons.settings,
+              color: CustomColors.DRAWER_TEXT_COLOR,
+            ),
+            title: const Text(
+              "Paramètres",
+              style: TextStyle(
+                color: CustomColors.DRAWER_TEXT_COLOR,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PageParametre(),
+                ),
+              );
+            },
+          )
         ],
       ),
     );

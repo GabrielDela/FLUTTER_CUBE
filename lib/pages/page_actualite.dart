@@ -1,4 +1,6 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
+import 'package:cube/classes/modeles/modele_Ressource.dart';
+import 'package:cube/controller/authController.dart';
 import 'package:flutter/material.dart';
 
 class PageActu extends StatefulWidget {
@@ -77,6 +79,28 @@ class _PageActuState extends State<PageActu> {
       'like': 7
     },
   ];
+  List listeRessources = [];
+
+  Future<List> Ressources() async {
+    return await AuthController.getRessources();
+  }
+
+  @override
+  void initState() {
+    Ressources().then((dataJson) {
+      for (var element in dataJson) {
+        print("**** HELLO WORLD ****");
+        print(element);
+        print("**** FIN HELLO WORLD ****");
+
+        // TODO : recupérer les ressources avec le nom de l'utilisateur.
+        // ne pas oublier sur la ligne du dessous : recup avec element['user_id']
+        //  Ressource ressourceCourante = Ressource(nomUtilisateur: nomUtilisateur, prenomUtilisateur: prenomUtilisateur, descriptionArticle: descriptionArticle, lienVersImage: lienVersImage, dateTempo: dateTempo, nbComment: nbComment, nbShare: nbShare, nbLike: nbLike, createdAt: createdAt, updatedAt: updatedAt)
+        //  listeRessources.Add(ressourceCourante);
+
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

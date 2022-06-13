@@ -8,6 +8,7 @@ class Utilisateur {
   String password;
   String role;
   String typeRelation = "";
+  String relationId;
 
   //constructeur
   Utilisateur(
@@ -19,5 +20,7 @@ class Utilisateur {
       required this.email,
       required this.password,
       required this.role,
-      required this.typeRelation});
+      required this.typeRelation,
+      required this.relationId
+      });
 }

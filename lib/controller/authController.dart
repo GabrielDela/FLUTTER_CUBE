@@ -1,7 +1,8 @@
 import 'dart:convert';
 
+import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/classes/modeles/modele_Utilisateur.dart';
-import 'package:cube/modeles/modele_Relation.dart';
+import 'package:cube/classes/modeles/modele_Relation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,12 +45,12 @@ class AuthController {
     return false;
   }
 
-  static Future<bool> me() async {
+  static Future<dynamic> me() async {
     dynamic response =
         await http.get(Uri.parse(base_url + "auth/me"), headers: header);
-
-    print(response.body);
-    return true;
+    var data = json.decode(response.body);
+    print(data);
+    return data;
   }
 
   static Future<List<Utilisateur>> getAmis() async {
@@ -69,10 +70,9 @@ class AuthController {
       // ListidAmi.add(element['id_to']);
     }
 
-    List listeRelationCastee = await listeRelations;
     List<Utilisateur> listUtilisateur = [];
 
-    for (var relation in listeRelationCastee) {
+    for (var relation in listeRelations) {
       print(relation.idTo);
       dynamic response = await http
           .get(Uri.parse(base_url + "users/${relation.idTo}"), headers: header);
@@ -86,9 +86,27 @@ class AuthController {
           email: json['email'],
           password: json['password'],
           role: json['role'],
+          relationId: relation.idRelation,
           typeRelation: relation.typeRelation);
       listUtilisateur.add(utilisateurCourant);
     }
     return listUtilisateur;
+  }
+
+  static Future<bool> deleteAmi(String idRelation) async {
+    dynamic response = await http.delete(
+        Uri.parse(base_url + "relations/" + idRelation),
+        headers: header);
+
+    print(response.body);
+    return true;
+  }
+
+  static Future<List> getRessources() async {
+    List<Ressource> listeRessources = [];
+    dynamic response =
+        await http.get(Uri.parse(base_url + "resources"), headers: header);
+    List data = json.decode(response.body);
+    return data;
   }
 }

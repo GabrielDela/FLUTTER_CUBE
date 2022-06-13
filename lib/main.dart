@@ -1,4 +1,3 @@
-import 'package:cube/pages/page_accueil.dart';
 import 'package:cube/pages/page_actualite.dart';
 import 'package:cube/pages/page_ami.dart';
 import 'package:cube/pages/page_ami.dart';
@@ -32,10 +31,14 @@ class MyApp extends StatelessWidget {
     // closer together (more dense) than on mobile platforms.
     visualDensity:
     VisualDensity.adaptivePlatformDensity;
-    return const MaterialApp(
+    return MaterialApp(
       title: 'CUBE',
       // home: PageHome(),
       home: PageAuth(),
+      routes: {
+        '/amis': (context) => PageAmi(),
+        '/profil_ami': (context) => PageProfilAmi(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }

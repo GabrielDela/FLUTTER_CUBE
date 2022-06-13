@@ -1,6 +1,5 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:cube/controller/authController.dart';
-import 'package:cube/pages/page_accueil.dart';
 import 'package:cube/pages/page_actualite.dart';
 import 'package:cube/pages/page_favoris.dart';
 import 'package:cube/pages/page_home.dart';
@@ -210,11 +209,12 @@ class _PageAuthState extends State<PageAuth> {
   }
 
   Login() async {
-    bool response = false;
-    response = await AuthController.login(email, password);
-    if (response) {
-      response = await AuthController.me();
-      if (response) {
+    bool connection = await AuthController.login(email, password);
+    if (connection) {
+      dynamic object = await AuthController.me();
+      print(object["success"]);
+
+      if (object["success"]) {
         Navigator.push(
           context,
           new MaterialPageRoute(builder: (context) => PageHome()),

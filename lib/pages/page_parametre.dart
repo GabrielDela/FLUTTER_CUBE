@@ -1,7 +1,9 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
+import 'package:cube/controller/authController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PageParametre extends StatefulWidget {
   const PageParametre({Key? key}) : super(key: key);
@@ -11,6 +13,22 @@ class PageParametre extends StatefulWidget {
 }
 
 class _PageParametreState extends State<PageParametre> {
+  // String _token = "";
+  // Future<void> _loadToken() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     _token = (prefs.getString('token') ?? ' **** no token **** ');
+  //     print(
+  //         "******************************MON TOKEN *************************" +
+  //             _token);
+  //   });
+  // }
+
+  @override
+  void initState() {
+    AuthController.me();
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;

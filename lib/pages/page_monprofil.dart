@@ -11,28 +11,6 @@ class PageMonProfil extends StatefulWidget {
 }
 
 class _PageMonProfilState extends State<PageMonProfil> {
-  List<Ressource> listeRessource2 = [
-    Ressource(
-        nomUtilisateur: "Roberts",
-        prenomUtilisateur: "Nathan",
-        descriptionArticle: "lorem ipsum",
-        dateTempo: "10/10/2022",
-        nbComment: 10,
-        nbShare: 5,
-        nbLike: 4,
-        lienVersImage:
-            "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg"),
-    Ressource(
-        nomUtilisateur: "Roberts",
-        prenomUtilisateur: "Nathan",
-        descriptionArticle: "lorem ipsum",
-        dateTempo: "11/11/2022",
-        nbComment: 100,
-        nbShare: 50,
-        nbLike: 40,
-        lienVersImage:
-            "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg")
-  ];
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
