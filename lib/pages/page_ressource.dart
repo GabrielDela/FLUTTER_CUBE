@@ -24,20 +24,6 @@ class _PageRessourcesState extends State<PageRessources> {
         title: const Text("Ressource"),
         centerTitle: true,
         backgroundColor: CustomColors.MAIN_PURPLE,
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.transparent,
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/avatarmale2.jpg',
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: Column(
         children: [

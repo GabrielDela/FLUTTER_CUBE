@@ -49,7 +49,8 @@ class User {
       required this.role,
       this.favorites,
       this.biography,
-      this.age});
+      this.age,
+      this.avatar});
 
   String id;
   String firstname;
@@ -59,6 +60,7 @@ class User {
   String role;
   String? biography;
   int? age;
+  String? avatar;
   List<dynamic>? favorites;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -70,6 +72,7 @@ class User {
         role: json["role"],
         biography: json["biography"],
         age: json["age"],
+        avatar: json['avatar'],
         favorites: List<dynamic>.from(json["favorites"].map((x) => x)),
       );
 
@@ -80,6 +83,7 @@ class User {
         "email": email,
         "tag": tag,
         "role": role,
+        "avatar": avatar,
         "favorites": List<dynamic>.from(favorites!.map((x) => x)),
       };
 }

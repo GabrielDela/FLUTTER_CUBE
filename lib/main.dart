@@ -1,6 +1,7 @@
 import 'package:cube/pages/page_ami.dart';
 import 'package:cube/pages/page_auth.dart';
 import 'package:cube/pages/page_favoris.dart';
+import 'package:cube/pages/page_inscription.dart';
 import 'package:cube/pages/page_profilami.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/amis': (context) => PageAmi(),
         '/favoris': (context) => PageFavoris(),
+        '/inscription': (context) => PageInscription(),
         // '/profil_ami': (context) => PageProfilAmi(),
       },
       debugShowCheckedModeBanner: false,

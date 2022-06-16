@@ -22,20 +22,6 @@ class _PageEditProfilState extends State<PageEditProfil> {
         titleTextStyle: TextStyle(color: CustomColors.MAIN_PURPLE),
         centerTitle: true,
         backgroundColor: Colors.white,
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.white,
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/avatarmale.jpg',
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Container(

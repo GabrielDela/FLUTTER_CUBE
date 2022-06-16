@@ -1,4 +1,5 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
+import 'package:cube/classes/modeles/modele_Utilisateur.dart';
 import 'package:cube/controller/authController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,20 +14,23 @@ class PageParametre extends StatefulWidget {
 }
 
 class _PageParametreState extends State<PageParametre> {
-  // String _token = "";
-  // Future<void> _loadToken() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     _token = (prefs.getString('token') ?? ' **** no token **** ');
-  //     print(
-  //         "******************************MON TOKEN *************************" +
-  //             _token);
-  //   });
-  // }
+  String id = "";
+  IconData _icon = Icons.favorite_outline;
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? stringValue = prefs.getString('userId');
+    if (stringValue != null) {
+      setState(() {
+        id = stringValue;
+      });
+    }
+  }
 
   @override
   void initState() {
-    AuthController.me();
+    super.initState();
+    getStringValuesSF();
   }
 
   @override
@@ -41,20 +45,6 @@ class _PageParametreState extends State<PageParametre> {
         title: const Text("Gestion des paramètres"),
         centerTitle: true,
         backgroundColor: CustomColors.MAIN_PURPLE,
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.white,
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/avatarmale2.jpg',
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -87,28 +77,6 @@ class _PageParametreState extends State<PageParametre> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Flexible(
-                    child: Container(
-                      width: queryData.size.width * 0.8,
-                      padding: EdgeInsets.only(left: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                            border: new OutlineInputBorder(
-                              borderSide: new BorderSide(color: Colors.black),
-                            ),
-                            hintText: 'NathanRoberts@mail.fr',
-                            hintStyle: TextStyle(color: Colors.black),
-                            contentPadding: EdgeInsets.all(10),
-                            enabled: false),
-                      ),
-                    ),
-                  ),
                   Flexible(
                       child: Container(
                     width: queryData.size.width * 0.8,

@@ -3,35 +3,24 @@ import 'package:cube/classes/modeles/modele_Relation.dart';
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/controller/authController.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PageProfilAmi extends StatefulWidget {
   final User user;
+  final String? idRelation;
 
-  const PageProfilAmi({Key? key, required this.user}) : super(key: key);
+  const PageProfilAmi({Key? key, required this.user, this.idRelation})
+      : super(key: key);
 
   @override
   _PageProfilAmiState createState() => _PageProfilAmiState();
 }
 
 class _PageProfilAmiState extends State<PageProfilAmi> {
-  String id = "";
-
-  getStringValuesSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? stringValue = prefs.getString('userId');
-    if (stringValue != null) {
-      setState(() {
-        id = stringValue;
-      });
-    }
-  }
+  IconData _icon = Icons.add;
 
   @override
   void initState() {
     super.initState();
-    getStringValuesSF();
   }
 
   @override
@@ -45,20 +34,6 @@ class _PageProfilAmiState extends State<PageProfilAmi> {
         title: Text("Profil de ${widget.user.firstname}"),
         centerTitle: true,
         backgroundColor: CustomColors.MAIN_PURPLE,
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.transparent,
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/avatarmale.jpg',
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
@@ -90,10 +65,11 @@ class _PageProfilAmiState extends State<PageProfilAmi> {
                             radius: 35,
                             backgroundColor: Colors.transparent,
                             child: ClipOval(
-                              child: Image.asset(
-                                'assets/images/avatarmale.jpg',
-                              ),
-                            ),
+                                child: (widget.user.avatar != null
+                                    ? Image.network(
+                                        widget.user.avatar.toString())
+                                    : Image.asset(
+                                        "assets/images/avatarfemale.jpg"))),
                           ),
                         ),
                         Text(
@@ -104,9 +80,18 @@ class _PageProfilAmiState extends State<PageProfilAmi> {
                               color: Colors.black),
                         ),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState() {
+                                _icon = Icons.delete;
+                              }
+
+                              print("LA RELATION");
+                              print(widget.idRelation);
+                              AuthController.deleteAmi(
+                                  widget.idRelation.toString());
+                            },
                             icon: Icon(
-                              Icons.group_add,
+                              _icon,
                               color: CustomColors.MAIN_PURPLE,
                               size: 20,
                             ))
@@ -210,74 +195,24 @@ class _PageProfilAmiState extends State<PageProfilAmi> {
                         itemBuilder: (_, index) => SingleChildScrollView(
                               child: Container(
                                 child: Card(
-                                  elevation: 4.0,
                                   child: Padding(
                                     padding: EdgeInsets.all(10),
-                                    child: Column(
-                                      children: [
-                                        ListTile(
-                                          title:
-                                              Text(snapshot.data![index].title),
-                                          subtitle: Text(snapshot
-                                              .data![index].description),
-                                          trailing: ElevatedButton(
-                                            onPressed: () {
-                                              print("ETOILE ${id}");
-                                              AuthController.postFavoris(
-                                                  id, snapshot.data![index].id);
-                                              Navigator.pop(
-                                                  context); // pop current page
-                                              Navigator.pushNamed(
-                                                  context, "/favoris");
-                                            },
-                                            child: Icon(
-                                              Icons.favorite_outline,
-                                            ),
-                                            style: ElevatedButton.styleFrom(
-                                              primary: CustomColors.MAIN_PURPLE,
-                                              surfaceTintColor: Colors.white,
-                                              elevation: 5.0,
-                                              shape: const CircleBorder(),
-                                            ),
-                                          ),
+                                    child: ListTile(
+                                      title: Text(
+                                        snapshot.data![index].title,
+                                        style: TextStyle(
+                                          fontSize: 20,
                                         ),
-                                        Container(
-                                          height: 200.0,
-                                          child: Html(
-                                            data: snapshot.data![index].content,
-                                          ),
+                                      ),
+                                      leading: CircleAvatar(
+                                        child: Text(
+                                          snapshot.data![index].description,
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        Container(
-                                          padding: EdgeInsets.all(16.0),
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                              snapshot.data![index].status),
-                                        ),
-                                        ButtonBar(
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {/* ... */},
-                                              icon: Icon(Icons.share),
-                                            ),
-                                            Text(snapshot.data![index].share
-                                                .toString()),
-                                            IconButton(
-                                              icon: Icon(Icons.comment),
-                                              onPressed: () {/* ... */},
-                                            ),
-                                            Text(
-                                                /*snapshot.data![index].likes
-                                                .toString()*/
-                                                "0"),
-                                            IconButton(
-                                              icon: Icon(Icons.thumb_up),
-                                              onPressed: () {/* ... */},
-                                            ),
-                                            Text(snapshot.data![index].likes
-                                                .toString())
-                                          ],
-                                        )
-                                      ],
+                                      ),
+                                      trailing: Text(snapshot.data![index].id),
                                     ),
                                   ),
                                 ),
@@ -285,6 +220,27 @@ class _PageProfilAmiState extends State<PageProfilAmi> {
                             ));
                   }
                 },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Text(
+                      "Ressources partagées",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 25,
+                          color: CustomColors.MAIN_PURPLE),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10,
               ),
             ],
           ),

@@ -56,22 +56,17 @@ class _PageHomeState extends State<PageHome> {
         duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
   }
 
-  List<Widget> tabPages = [
-    PageActu(),
-    PageRessources(),
-    PageFavoris(),
-    PageProfil()
-  ];
+  // List<Widget> tabPages = [
+  //   PageActu(),
+  //   PageRessources(),
+  //   PageFavoris(),
+  //   PageProfil()
+  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const HomeDrawer(),
-      appBar: const HomeAppBar(),
-      body: PageView(
-        children: tabPages,
-        onPageChanged: _onItemTapped,
-        controller: _pageController,
-      ),
-    );
+        drawer: const HomeDrawer(),
+        appBar: const HomeAppBar(),
+        body: PageActu());
   }
 }

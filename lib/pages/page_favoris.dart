@@ -43,20 +43,6 @@ class _PageFavorisState extends State<PageFavoris> {
         title: const Text("Mes favoris"),
         centerTitle: true,
         backgroundColor: CustomColors.MAIN_PURPLE,
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.transparent,
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/avatarmale.jpg',
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: Container(
         child: FutureBuilder<List<Ressource>>(

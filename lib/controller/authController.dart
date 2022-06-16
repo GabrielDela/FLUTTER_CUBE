@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/classes/modeles/modele_Relation.dart';
@@ -61,8 +62,6 @@ class AuthController {
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body);
       final convert = Users.fromJson(parsed);
-      print("L'ETOILEEE USER");
-      print(parsed);
       return convert;
     } else {
       throw Exception(
@@ -90,12 +89,20 @@ class AuthController {
     }
   }
 
+//Ajout d'un ami avec les id de l'utilisateur loggé et l'utilisateur actuel
+  static Future<bool> addAmi(String idFrom, String idTo) async {
+    Map data = {"id_from": idFrom, "id_to": idTo};
+    var body = json.encode(data);
+    final response = await http.post(Uri.parse(base_url + "relations"),
+        headers: header, body: body);
+    return true;
+  }
+
   //Suppression d'un ami avec l'id de la relation
   static Future<bool> deleteAmi(String idRelation) async {
     dynamic response = await http.delete(
         Uri.parse(base_url + "relations/" + idRelation),
         headers: header);
-
     return true;
   }
 
@@ -109,13 +116,9 @@ class AuthController {
   static Future<List<Ressource>> getRessourcesUser(String id) async {
     final response = await http
         .get(Uri.parse(base_url + "resources/user/" + id), headers: header);
-    print("RESPONSE");
-    print(response.body);
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
-      print("LUNE");
-      print(parsed);
       return parsed.map<Ressource>((json) => Ressource.fromJson(json)).toList();
     } else {
       throw Exception(
@@ -129,8 +132,6 @@ class AuthController {
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
-      print("SOLEIL");
-      print(parsed);
       return parsed.map<Ressource>((json) => Ressource.fromJson(json)).toList();
     } else {
       throw Exception(
@@ -145,8 +146,6 @@ class AuthController {
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
-      print("SOLEIL DES FAVORIS");
-      print(parsed);
       return parsed.map<Ressource>((json) => Ressource.fromJson(json)).toList();
     } else {
       throw Exception(
@@ -158,8 +157,6 @@ class AuthController {
     final response = await http.post(
         Uri.parse(base_url + "users/" + idUser + "/favorites/" + idRessource),
         headers: header);
-    print("LA BONNE ETOILE");
-    print(response.body);
     return true;
   }
 
@@ -167,8 +164,32 @@ class AuthController {
     final response = await http.delete(
         Uri.parse(base_url + "users/" + idUser + "/favorites/" + idRessource),
         headers: header);
-    print("LA BONNE ETOILE DU DELETE");
-    print(response.body);
     return true;
+  }
+
+  static Future<bool> addUser(String mail, int age, String nom, String prenom,
+      String mdp1, String mdp2) async {
+    if ((nom.isEmpty && nom != null) ||
+        (prenom.isEmpty && prenom != null) ||
+        (mail.isEmpty && mail != null) ||
+        (mdp1.isEmpty && mdp1 != null) ||
+        (age > 15 && age != null) ||
+        (mdp2.isEmpty && mdp2 != null) ||
+        (mdp1 == mdp2)) {
+      Map data = {
+        "firstname": prenom,
+        "age": age,
+        "lastname": nom,
+        "email": mail,
+        "password": mdp1,
+        "biography": "Bonjour je suis ${prenom} ${nom}"
+      };
+      var body = json.encode(data);
+      final response = await http.post(Uri.parse(base_url + "users"),
+          headers: header, body: body);
+      return true;
+    } else {
+      return false;
+    }
   }
 }

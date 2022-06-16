@@ -3,6 +3,7 @@ import 'package:cube/controller/authController.dart';
 import 'package:cube/pages/page_actualite.dart';
 import 'package:cube/pages/page_favoris.dart';
 import 'package:cube/pages/page_home.dart';
+import 'package:cube/pages/page_inscription.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -194,12 +195,22 @@ class _PageAuthState extends State<PageAuth> {
                 onTap: () {
                   null;
                 },
-                child: const Text(
-                  "Inscrivez-vous",
-                  style: TextStyle(
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
-                      fontSize: 16),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PageInscription(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Inscrivez-vous",
+                    style: TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                        fontSize: 16),
+                  ),
                 ),
               ),
             ),
