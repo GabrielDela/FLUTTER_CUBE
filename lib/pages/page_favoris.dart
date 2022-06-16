@@ -1,5 +1,10 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
+import 'package:cube/classes/modeles/modele_Ressource.dart';
+import 'package:cube/classes/modeles/modele_Utilisateur.dart';
+import 'package:cube/controller/authController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PageFavoris extends StatefulWidget {
   const PageFavoris({Key? key}) : super(key: key);
@@ -9,41 +14,24 @@ class PageFavoris extends StatefulWidget {
 }
 
 class _PageFavorisState extends State<PageFavoris> {
-  final List listeRessource = [
-    {
-      'nom': "@NathRoberts44",
-      'category': "Sport",
-      'date': '10/10/2022',
-      'description':
-          "Proin id dictum turpis, nec volutpat erat. Donec id ultrices quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;",
-      'image': "assets/images/img1.jpg",
-      'comment': 12,
-      'share': 4,
-      'like': 7
-    },
-    {
-      'nom': "@BessCooper28",
-      'category': "Cuisine",
-      'date': '08/08/2022',
-      'description':
-          "Mauris tortor nisi, interdum sit amet elementum nec, mattis vel nibh. Proin eu libero sapien. Duis tristique tempor velit egestas tempus. Etiam vitae ullamcorper mauris. Nunc egestas sollicitudin ante vel rhoncus.",
-      'image': "assets/images/img2.jpg",
-      'comment': 20,
-      'share': 3,
-      'like': 10
-    },
-    {
-      'nom': "@EleanrPena404",
-      'category': "Langue",
-      'date': '09/09/2022',
-      'description':
-          "Suspendisse lacinia, enim non tincidunt faucibus, turpis nulla laoreet erat, vitae commodo metus turpis a felis. .",
-      'image': "assets/images/img3.png",
-      'comment': 22,
-      'share': 4,
-      'like': 12
-    },
-  ];
+  String id = "";
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? stringValue = prefs.getString('userId');
+    if (stringValue != null) {
+      setState(() {
+        id = stringValue;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getStringValuesSF();
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
@@ -52,7 +40,7 @@ class _PageFavorisState extends State<PageFavoris> {
       //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Mes Favoris"),
+        title: const Text("Mes favoris"),
         centerTitle: true,
         backgroundColor: CustomColors.MAIN_PURPLE,
         actions: <Widget>[
@@ -70,142 +58,100 @@ class _PageFavorisState extends State<PageFavoris> {
           ),
         ],
       ),
-      body: (SingleChildScrollView(
-        child: Column(
-            children: listeRessource.map((ressource) {
-          return Container(
-            margin: EdgeInsets.only(left: 0.5, right: 0.5, top: 0.5, bottom: 5),
-            height: 370,
-            width: double.infinity,
-            decoration: BoxDecoration(color: Colors.white, boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.shade50,
-                  spreadRadius: 4,
-                  blurRadius: 6,
-                  offset: Offset(0, 3)),
-            ]),
-            child: Column(
-              children: [
-                Container(
-                  //color: Colors.purple,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(ressource['image']),
-                        fit: BoxFit.cover),
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 5,
-                        right: -15,
-                        child: MaterialButton(
-                          color: Colors.white,
-                          shape: CircleBorder(),
-                          onPressed: () {},
-                          child: Icon(Icons.favorite,
-                              color: CustomColors.MAIN_PURPLE, size: 25),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        child: CircleAvatar(
-                          radius: 25,
-                          backgroundColor: Colors.transparent,
-                          child: ClipOval(
-                            child: Image.asset(
-                              'assets/images/avatarfemale.jpg',
-                            ),
+      body: Container(
+        child: FutureBuilder<List<Ressource>>(
+            future: AuthController.getFavorisByUser(id),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Ressource>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                print("le test");
+                print(snapshot.data);
+                return Center(child: Text('Chargement'));
+              } else {
+                if (snapshot.hasError) {
+                  print("testttt");
+                  print(snapshot.data);
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                }
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (_, index) {
+                    return Container(
+                      child: Card(
+                        elevation: 4.0,
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                title: Text(snapshot.data![index].title),
+                                subtitle:
+                                    Text(snapshot.data![index].description),
+                                trailing: ElevatedButton(
+                                  onPressed: () {
+                                    print("ETOILE ${id}");
+                                    AuthController.deleteFavoris(
+                                        id, snapshot.data![index].id);
+                                    Navigator.pop(context); // pop current page
+                                    Navigator.pushNamed(context, "/favoris");
+                                  },
+                                  child: Icon(
+                                    Icons.favorite_outline,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: CustomColors.MAIN_PURPLE,
+                                    surfaceTintColor: Colors.white,
+                                    elevation: 5.0,
+                                    shape: const CircleBorder(),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 200.0,
+                                child: Html(
+                                  data: snapshot.data![index].content,
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(16.0),
+                                alignment: Alignment.centerLeft,
+                                child: Text(snapshot.data![index].status),
+                              ),
+                              ButtonBar(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {/* ... */},
+                                    icon: Icon(Icons.share),
+                                  ),
+                                  Text(snapshot.data![index].share.toString()),
+                                  IconButton(
+                                    icon: Icon(Icons.comment),
+                                    onPressed: () {/* ... */},
+                                  ),
+                                  Text(
+                                      /*snapshot.data![index].likes
+                                                .toString()*/
+                                      "0"),
+                                  IconButton(
+                                    icon: Icon(Icons.thumb_up),
+                                    onPressed: () {/* ... */},
+                                  ),
+                                  Text(snapshot.data![index].likes.toString())
+                                ],
+                              )
+                            ],
                           ),
                         ),
                       ),
-                      Text(
-                        ressource["nom"],
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Text(ressource["date"], style: TextStyle(fontSize: 12)),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      ressource["category"],
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: queryData.size.width * 0.9,
-                      height: 100,
-                      child: Text(
-                        ressource["description"],
-                        textDirection: TextDirection.ltr,
-                        textAlign: TextAlign.justify,
-                        style: new TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                        maxLines: 10,
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      children: [
-                        Text(ressource["comment"].toString()),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.message_outlined),
-                            color: CustomColors.MAIN_PURPLE),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(ressource["share"].toString()),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.share_outlined),
-                            color: CustomColors.MAIN_PURPLE),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(ressource["like"].toString()),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.thumb_up_alt_outlined),
-                            color: CustomColors.MAIN_PURPLE),
-                      ],
-                    )
-                  ],
-                ))
-              ],
-            ),
-          );
-        }).toList()),
-      )), //body
+                    );
+                  },
+                );
+              }
+            }),
+      ), //body
     );
   }
 }

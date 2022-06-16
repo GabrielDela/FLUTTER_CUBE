@@ -40,16 +40,16 @@ class Relations {
 }
 
 class User {
-  User({
-    required this.id,
-    required this.firstname,
-    required this.lastname,
-    required this.email,
-    required this.tag,
-    required this.role,
-    this.favorites,
-    this.biography,
-  });
+  User(
+      {required this.id,
+      required this.firstname,
+      required this.lastname,
+      required this.email,
+      required this.tag,
+      required this.role,
+      this.favorites,
+      this.biography,
+      this.age});
 
   String id;
   String firstname;
@@ -58,6 +58,7 @@ class User {
   String tag;
   String role;
   String? biography;
+  int? age;
   List<dynamic>? favorites;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -68,6 +69,7 @@ class User {
         tag: json["tag"],
         role: json["role"],
         biography: json["biography"],
+        age: json["age"],
         favorites: List<dynamic>.from(json["favorites"].map((x) => x)),
       );
 

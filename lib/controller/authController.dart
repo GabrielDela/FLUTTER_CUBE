@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/classes/modeles/modele_Relation.dart';
+import 'package:cube/classes/modeles/modele_Utilisateur.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,6 +52,22 @@ class AuthController {
     var data = json.decode(response.body);
     await prefs.setString("userId", data["user"]["user"]["_id"]);
     return data;
+  }
+
+  static Future<Users> getUserById(String id) async {
+    final response =
+        await http.get(Uri.parse(base_url + "users/${id}"), headers: header);
+
+    if (response.statusCode == 200) {
+      final parsed = json.decode(response.body);
+      final convert = Users.fromJson(parsed);
+      print("L'ETOILEEE USER");
+      print(parsed);
+      return convert;
+    } else {
+      throw Exception(
+          "Erreur dans la récupération des amis de l'utilisateur authController.getUserById(id)");
+    }
   }
 
   //Récupération des amis avec l'id de la personne
@@ -119,5 +136,39 @@ class AuthController {
       throw Exception(
           "Erreur dans la récupération des ressources de l'utilisateur authController.getRessources");
     }
+  }
+
+  static Future<List<Ressource>> getFavorisByUser(String idUser) async {
+    final response = await http.get(
+        Uri.parse(base_url + "resources/user/${idUser}/favorites"),
+        headers: header);
+
+    if (response.statusCode == 200) {
+      final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+      print("SOLEIL DES FAVORIS");
+      print(parsed);
+      return parsed.map<Ressource>((json) => Ressource.fromJson(json)).toList();
+    } else {
+      throw Exception(
+          "Erreur dans la récupération des ressources de l'utilisateur authController.getFavorisByUser");
+    }
+  }
+
+  static Future<bool> postFavoris(String idUser, String idRessource) async {
+    final response = await http.post(
+        Uri.parse(base_url + "users/" + idUser + "/favorites/" + idRessource),
+        headers: header);
+    print("LA BONNE ETOILE");
+    print(response.body);
+    return true;
+  }
+
+  static Future<bool> deleteFavoris(String idUser, String idRessource) async {
+    final response = await http.delete(
+        Uri.parse(base_url + "users/" + idUser + "/favorites/" + idRessource),
+        headers: header);
+    print("LA BONNE ETOILE DU DELETE");
+    print(response.body);
+    return true;
   }
 }

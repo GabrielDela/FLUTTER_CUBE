@@ -3,6 +3,8 @@ import 'package:cube/classes/modeles/modele_Relation.dart';
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/controller/authController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PageProfilAmi extends StatefulWidget {
   final User user;
@@ -14,6 +16,24 @@ class PageProfilAmi extends StatefulWidget {
 }
 
 class _PageProfilAmiState extends State<PageProfilAmi> {
+  String id = "";
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? stringValue = prefs.getString('userId');
+    if (stringValue != null) {
+      setState(() {
+        id = stringValue;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getStringValuesSF();
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
@@ -190,340 +210,82 @@ class _PageProfilAmiState extends State<PageProfilAmi> {
                         itemBuilder: (_, index) => SingleChildScrollView(
                               child: Container(
                                 child: Card(
+                                  elevation: 4.0,
                                   child: Padding(
                                     padding: EdgeInsets.all(10),
-                                    child: ListTile(
-                                      title: Text(
-                                        snapshot.data![index].title,
-                                        style: TextStyle(
-                                          fontSize: 20,
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          title:
+                                              Text(snapshot.data![index].title),
+                                          subtitle: Text(snapshot
+                                              .data![index].description),
+                                          trailing: ElevatedButton(
+                                            onPressed: () {
+                                              print("ETOILE ${id}");
+                                              AuthController.postFavoris(
+                                                  id, snapshot.data![index].id);
+                                              Navigator.pop(
+                                                  context); // pop current page
+                                              Navigator.pushNamed(
+                                                  context, "/favoris");
+                                            },
+                                            child: Icon(
+                                              Icons.favorite_outline,
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: CustomColors.MAIN_PURPLE,
+                                              surfaceTintColor: Colors.white,
+                                              elevation: 5.0,
+                                              shape: const CircleBorder(),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      leading: CircleAvatar(
-                                        child: Text(
-                                          snapshot.data![index].description,
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
+                                        Container(
+                                          height: 200.0,
+                                          child: Html(
+                                            data: snapshot.data![index].content,
+                                          ),
                                         ),
-                                      ),
-                                      trailing: Text(snapshot.data![index].id),
+                                        Container(
+                                          padding: EdgeInsets.all(16.0),
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                              snapshot.data![index].status),
+                                        ),
+                                        ButtonBar(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {/* ... */},
+                                              icon: Icon(Icons.share),
+                                            ),
+                                            Text(snapshot.data![index].share
+                                                .toString()),
+                                            IconButton(
+                                              icon: Icon(Icons.comment),
+                                              onPressed: () {/* ... */},
+                                            ),
+                                            Text(
+                                                /*snapshot.data![index].likes
+                                                .toString()*/
+                                                "0"),
+                                            IconButton(
+                                              icon: Icon(Icons.thumb_up),
+                                              onPressed: () {/* ... */},
+                                            ),
+                                            Text(snapshot.data![index].likes
+                                                .toString())
+                                          ],
+                                        )
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
-                            )
-                        //   child: Padding(
-                        //     padding: EdgeInsets.symmetric(vertical: 8.0),
-                        //     child: Card(
-                        //         shape: RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.circular(25),
-                        //         ),
-                        //         child: Container(
-                        //           margin: EdgeInsets.only(
-                        //               left: 0.5, right: 0.5, top: 0.5, bottom: 5),
-                        //           height: 370,
-                        //           width: double.infinity,
-                        //           decoration: BoxDecoration(
-                        //               color: Colors.white,
-                        //               boxShadow: [
-                        //                 BoxShadow(
-                        //                     color: Colors.grey.shade50,
-                        //                     spreadRadius: 4,
-                        //                     blurRadius: 6,
-                        //                     offset: Offset(0, 3)),
-                        //               ]),
-                        //           child: Column(
-                        //             children: [
-                        //               Container(
-                        //                 //color: Colors.purple,
-                        //                 height: 120,
-                        //                 decoration: BoxDecoration(
-                        //                   image: DecorationImage(
-                        //                       image: AssetImage(
-                        //                           // snapshot.data![index].image
-                        //                           "assets/images/img1.jpg"),
-                        //                       fit: BoxFit.cover),
-                        //                 ),
-                        //                 child: Stack(
-                        //                   children: [
-                        //                     Positioned(
-                        //                       top: 5,
-                        //                       right: -15,
-                        //                       child: MaterialButton(
-                        //                         color: Colors.white,
-                        //                         shape: CircleBorder(),
-                        //                         onPressed: () {},
-                        //                         child: Icon(Icons.favorite_border,
-                        //                             color: CustomColors.MAIN_PURPLE,
-                        //                             size: 25),
-                        //                       ),
-                        //                     )
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //               Container(
-                        //                 child: Row(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.spaceBetween,
-                        //                   children: [
-                        //                     Padding(
-                        //                       padding: EdgeInsets.symmetric(
-                        //                           vertical: 10.0, horizontal: 10.0),
-                        //                       child: CircleAvatar(
-                        //                         radius: 25,
-                        //                         backgroundColor: Colors.transparent,
-                        //                         child: ClipOval(
-                        //                           child: Image.asset(
-                        //                             'assets/images/avatarfemale.jpg',
-                        //                           ),
-                        //                         ),
-                        //                       ),
-                        //                     ),
-                        //                     Text(
-                        //                       snapshot.data![index].title,
-                        //                       style: TextStyle(
-                        //                           fontWeight: FontWeight.bold,
-                        //                           fontSize: 20),
-                        //                     ),
-                        //                     Text(
-                        //                       "${snapshot.data![index].createdAt.day}-${snapshot.data![index].createdAt.month}-${snapshot.data![index].createdAt.year}",
-                        //                       style: TextStyle(fontSize: 12),
-                        //                     ),
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //               SizedBox(
-                        //                 height: 5,
-                        //               ),
-                        //               Row(
-                        //                 mainAxisAlignment: MainAxisAlignment.center,
-                        //                 children: [
-                        //                   SizedBox(
-                        //                     width:
-                        //                         queryData.size.width * 0.9, //300,
-                        //                     height: 100,
-                        //                     child: Text(
-                        //                       snapshot.data![index].description,
-                        //                       textDirection: TextDirection.ltr,
-                        //                       textAlign: TextAlign.justify,
-                        //                       style: new TextStyle(
-                        //                         fontSize: 14,
-                        //                         color: Colors.grey,
-                        //                       ),
-                        //                       maxLines: 10,
-                        //                     ),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //               Container(
-                        //                   child: Row(
-                        //                 mainAxisAlignment:
-                        //                     MainAxisAlignment.spaceEvenly,
-                        //                 children: [
-                        //                   // Row(
-                        //                   //   children: [
-                        //                   //     Text(snapshot.data![index].likes
-                        //                   //         .toString()),
-                        //                   //     IconButton(
-                        //                   //         onPressed: () {},
-                        //                   //         icon:
-                        //                   //             Icon(Icons.message_outlined),
-                        //                   //         color: CustomColors.MAIN_PURPLE),
-                        //                   //   ],
-                        //                   // ),
-                        //                   Row(
-                        //                     children: [
-                        //                       Text(snapshot.data![index].share
-                        //                           .toString()),
-                        //                       IconButton(
-                        //                           onPressed: () {},
-                        //                           icon: Icon(Icons.share_outlined),
-                        //                           color: CustomColors.MAIN_PURPLE),
-                        //                     ],
-                        //                   ),
-                        //                   Row(
-                        //                     children: [
-                        //                       Text(snapshot.data![index].likes
-                        //                           .toString()),
-                        //                       IconButton(
-                        //                           onPressed: () {
-                        //                             print("tessst");
-                        //                             print(snapshot.data![index]);
-                        //                           },
-                        //                           icon: Icon(
-                        //                               Icons.thumb_up_alt_outlined),
-                        //                           color: CustomColors.MAIN_PURPLE),
-                        //                     ],
-                        //                   )
-                        //                 ],
-                        //               ))
-                        //             ],
-                        //           ),
-                        //         )),
-                        //   ),
-                        // ),
-                        );
+                            ));
                   }
                 },
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Text(
-                      "Ressources partagées",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 25,
-                          color: CustomColors.MAIN_PURPLE),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              // Column(
-              //     children: ListressourcePartagees.map((ressource) {
-              //   return Container(
-              //     margin:
-              //         EdgeInsets.only(left: 0.5, right: 0.5, top: 0.5, bottom: 5),
-              //     height: 370,
-              //     width: double.infinity,
-              //     decoration: BoxDecoration(color: Colors.white, boxShadow: [
-              //       BoxShadow(
-              //           color: Colors.grey.shade50,
-              //           spreadRadius: 4,
-              //           blurRadius: 6,
-              //           offset: Offset(0, 3)),
-              //     ]),
-              //     child: Column(
-              //       children: [
-              //         Container(
-              //           //color: Colors.purple,
-              //           height: 120,
-              //           decoration: BoxDecoration(
-              //             image: DecorationImage(
-              //                 image: AssetImage(ressource['image']),
-              //                 fit: BoxFit.cover),
-              //           ),
-              //           child: Stack(
-              //             children: [
-              //               Positioned(
-              //                 top: 5,
-              //                 right: -15,
-              //                 child: MaterialButton(
-              //                   color: Colors.white,
-              //                   shape: CircleBorder(),
-              //                   onPressed: () {},
-              //                   child: Icon(Icons.favorite_border_outlined,
-              //                       color: CustomColors.MAIN_PURPLE, size: 25),
-              //                 ),
-              //               )
-              //             ],
-              //           ),
-              //         ),
-              //         Container(
-              //           child: Row(
-              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //             children: [
-              //               Padding(
-              //                 padding: EdgeInsets.symmetric(
-              //                     vertical: 10.0, horizontal: 10.0),
-              //                 child: CircleAvatar(
-              //                   radius: 25,
-              //                   backgroundColor: Colors.transparent,
-              //                   child: ClipOval(
-              //                     child: Image.asset(
-              //                       'assets/images/avatarfemale.jpg',
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ),
-              //               Text(
-              //                 ressource["nom"],
-              //                 style: TextStyle(
-              //                     fontWeight: FontWeight.bold, fontSize: 20),
-              //               ),
-              //               Text(ressource["date"],
-              //                   style: TextStyle(fontSize: 12)),
-              //             ],
-              //           ),
-              //         ),
-              //         Row(
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: [
-              //             Text(
-              //               ressource["category"],
-              //               style: TextStyle(
-              //                   fontWeight: FontWeight.bold, fontSize: 15),
-              //             ),
-              //           ],
-              //         ),
-              //         SizedBox(
-              //           height: 5,
-              //         ),
-              //         Row(
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: [
-              //             SizedBox(
-              //               width: queryData.size.width * 0.9, //300,
-              //               height: 100,
-              //               child: Text(
-              //                 ressource["description"],
-              //                 textDirection: TextDirection.ltr,
-              //                 textAlign: TextAlign.justify,
-              //                 style: new TextStyle(
-              //                   fontSize: 14,
-              //                   color: Colors.grey,
-              //                 ),
-              //                 maxLines: 10,
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //         Container(
-              //             child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //           children: [
-              //             Row(
-              //               children: [
-              //                 Text(ressource["comment"].toString()),
-              //                 IconButton(
-              //                     onPressed: () {},
-              //                     icon: Icon(Icons.message_outlined),
-              //                     color: CustomColors.MAIN_PURPLE),
-              //               ],
-              //             ),
-              //             Row(
-              //               children: [
-              //                 Text(ressource["share"].toString()),
-              //                 IconButton(
-              //                     onPressed: () {},
-              //                     icon: Icon(Icons.share_outlined),
-              //                     color: CustomColors.MAIN_PURPLE),
-              //               ],
-              //             ),
-              //             Row(
-              //               children: [
-              //                 Text(ressource["like"].toString()),
-              //                 IconButton(
-              //                     onPressed: () {},
-              //                     icon: Icon(Icons.thumb_up_alt_outlined),
-              //                     color: CustomColors.MAIN_PURPLE),
-              //               ],
-              //             )
-              //           ],
-              //         ))
-              //       ],
-              //     ),
-              //   );
-              // }).toList()),
             ],
           ),
         ),

@@ -114,6 +114,7 @@ class _PageAuthState extends State<PageAuth> {
             Container(
               margin: const EdgeInsets.only(top: 0, bottom: 15),
               child: TextField(
+                obscureText: true,
                 onChanged: (text) {
                   password = text;
                 },
