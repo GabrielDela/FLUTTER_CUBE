@@ -15,7 +15,8 @@ class PageParametre extends StatefulWidget {
 
 class _PageParametreState extends State<PageParametre> {
   String id = "";
-  IconData _icon = Icons.favorite_outline;
+  TextEditingController mdp1 = new TextEditingController();
+  TextEditingController mdp2 = new TextEditingController();
 
   getStringValuesSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -68,78 +69,6 @@ class _PageParametreState extends State<PageParametre> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 240,
-              color: Colors.white,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Flexible(
-                      child: Container(
-                    width: queryData.size.width * 0.8,
-                    padding: EdgeInsets.only(left: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: TextField(
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                          border: new OutlineInputBorder(
-                            borderSide: new BorderSide(color: Colors.black),
-                          ),
-                          hintText: 'Nom',
-                          hintStyle: TextStyle(color: Colors.black),
-                          contentPadding: EdgeInsets.all(10),
-                          enabled: true),
-                    ),
-                  )),
-                  Flexible(
-                    child: Container(
-                      width: queryData.size.width * 0.8,
-                      padding: EdgeInsets.only(left: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: TextField(
-                        style: TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                            border: new OutlineInputBorder(
-                              borderSide: new BorderSide(color: Colors.black),
-                            ),
-                            hintText: 'Prénom',
-                            hintStyle: TextStyle(color: Colors.black),
-                            contentPadding: EdgeInsets.all(10),
-                            enabled: true),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                        onPrimary: Colors.green,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        textStyle: TextStyle(fontSize: 15, color: Colors.white),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        "Sauvegarder",
-                        style: TextStyle(color: CustomColors.MAIN_PURPLE),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
             Container(
               height: 240,
               color: Colors.white,
@@ -167,6 +96,7 @@ class _PageParametreState extends State<PageParametre> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: TextField(
+                        controller: mdp1,
                         obscureText: true,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
@@ -189,6 +119,7 @@ class _PageParametreState extends State<PageParametre> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: TextField(
+                        controller: mdp2,
                         obscureText: true,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
@@ -212,7 +143,10 @@ class _PageParametreState extends State<PageParametre> {
                         textStyle: TextStyle(
                             fontSize: 15, color: CustomColors.MAIN_PURPLE),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        print("Sauvegarde");
+                        AuthController.patchUser(id, mdp1.text, mdp2.text);
+                      },
                       child: Text(
                         "Sauvegarder",
                         style: TextStyle(color: CustomColors.MAIN_PURPLE),
@@ -239,25 +173,6 @@ class _PageParametreState extends State<PageParametre> {
                           color: CustomColors.MAIN_PURPLE,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Flexible(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                        onPrimary: Colors.orangeAccent,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        textStyle: TextStyle(fontSize: 15, color: Colors.red),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        "Désactiver le compte",
-                        style: TextStyle(color: CustomColors.MAIN_PURPLE),
-                      ),
                     ),
                   ),
                   Flexible(

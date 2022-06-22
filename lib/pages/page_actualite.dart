@@ -73,9 +73,9 @@ class _PageActuState extends State<PageActu> {
                               subtitle: Text(snapshot.data![index].description),
                               trailing: ElevatedButton(
                                 onPressed: () {
-                                  setState() {
+                                  setState(() {
                                     _icon = Icons.favorite;
-                                  }
+                                  });
 
                                   print("ETOILE ${id}");
                                   AuthController.postFavoris(

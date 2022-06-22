@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ui';
-
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/classes/modeles/modele_Relation.dart';
 import 'package:cube/classes/modeles/modele_Utilisateur.dart';
@@ -157,6 +155,7 @@ class AuthController {
     final response = await http.post(
         Uri.parse(base_url + "users/" + idUser + "/favorites/" + idRessource),
         headers: header);
+    print("LES FAVVVV");
     return true;
   }
 
@@ -169,12 +168,12 @@ class AuthController {
 
   static Future<bool> addUser(String mail, int age, String nom, String prenom,
       String mdp1, String mdp2) async {
-    if ((nom.isEmpty && nom != null) ||
-        (prenom.isEmpty && prenom != null) ||
-        (mail.isEmpty && mail != null) ||
-        (mdp1.isEmpty && mdp1 != null) ||
-        (age > 15 && age != null) ||
-        (mdp2.isEmpty && mdp2 != null) ||
+    if ((nom.isEmpty || nom != null) &&
+        (prenom.isEmpty || prenom != null) &&
+        (mail.isEmpty || mail != null) &&
+        (mdp1.isEmpty || mdp1 != null) &&
+        (age > 15 || age != null) &&
+        (mdp2.isEmpty || mdp2 != null) &&
         (mdp1 == mdp2)) {
       Map data = {
         "firstname": prenom,
@@ -191,5 +190,38 @@ class AuthController {
     } else {
       return false;
     }
+  }
+
+  static Future<bool> patchUser(String idUser, String mdp1, String mdp2) async {
+    if ((mdp1.isEmpty || mdp1 != null) &&
+        (mdp2.isEmpty || mdp2 != null) &&
+        (mdp1 == mdp2)) {
+      Map data = {"password": mdp1};
+      var body = json.encode(data);
+      final response = await http.patch(Uri.parse(base_url + "users/" + idUser),
+          headers: header, body: body);
+      return true;
+    }
+    return false;
+  }
+
+  static Future<bool> postRessource(String titre, String description,
+      String image, String contenu, String idUser) async {
+    DateTime dateJour = DateTime.now();
+
+    print("ICI");
+    Map data = {
+      "title": titre,
+      "description": description,
+      "image": image,
+      "content": jsonEncode(contenu),
+      "user_id": idUser,
+      "created_at": dateJour.toIso8601String()
+    };
+    var body = json.encode(data);
+    final response = await http.post(Uri.parse(base_url + "resources"),
+        headers: header, body: body);
+    print(response.body);
+    return true;
   }
 }

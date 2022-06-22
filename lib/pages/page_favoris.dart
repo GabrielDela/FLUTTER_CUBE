@@ -15,6 +15,7 @@ class PageFavoris extends StatefulWidget {
 
 class _PageFavorisState extends State<PageFavoris> {
   String id = "";
+  IconData _icon = Icons.favorite;
 
   getStringValuesSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -78,15 +79,23 @@ class _PageFavorisState extends State<PageFavoris> {
                                     Text(snapshot.data![index].description),
                                 trailing: ElevatedButton(
                                   onPressed: () {
-                                    print("ETOILE ${id}");
-                                    AuthController.deleteFavoris(
-                                        id, snapshot.data![index].id);
-                                    Navigator.pop(context); // pop current page
-                                    Navigator.pushNamed(context, "/favoris");
+                                    if (_icon == Icons.favorite) {
+                                      AuthController.deleteFavoris(
+                                          id, snapshot.data![index].id);
+                                      setState(() {
+                                        _icon = Icons.favorite_outline;
+                                      });
+                                    } else {
+                                      if (_icon == Icons.favorite_outline) {
+                                        AuthController.postFavoris(
+                                            id, snapshot.data![index].id);
+                                        setState(() {
+                                          _icon = Icons.favorite;
+                                        });
+                                      }
+                                    }
                                   },
-                                  child: Icon(
-                                    Icons.favorite_outline,
-                                  ),
+                                  child: Icon(_icon),
                                   style: ElevatedButton.styleFrom(
                                     primary: CustomColors.MAIN_PURPLE,
                                     surfaceTintColor: Colors.white,

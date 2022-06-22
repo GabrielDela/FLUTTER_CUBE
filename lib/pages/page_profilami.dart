@@ -3,6 +3,7 @@ import 'package:cube/classes/modeles/modele_Relation.dart';
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/controller/authController.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PageProfilAmi extends StatefulWidget {
   final User user;
@@ -18,9 +19,27 @@ class PageProfilAmi extends StatefulWidget {
 class _PageProfilAmiState extends State<PageProfilAmi> {
   IconData _icon = Icons.add;
 
+  String id = "";
+
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? stringValue = prefs.getString('userId');
+    if (stringValue != null) {
+      setState(() {
+        id = stringValue;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    getStringValuesSF();
+    if (widget.idRelation != null) {
+      setState(() {
+        _icon = Icons.delete;
+      });
+    }
   }
 
   @override
@@ -80,21 +99,28 @@ class _PageProfilAmiState extends State<PageProfilAmi> {
                               color: Colors.black),
                         ),
                         IconButton(
-                            onPressed: () {
-                              setState() {
+                          onPressed: () {
+                            if (_icon == Icons.add) {
+                              AuthController.addAmi(id, widget.user.id);
+                              setState(() {
                                 _icon = Icons.delete;
+                              });
+                            } else {
+                              if (_icon == Icons.delete) {
+                                AuthController.deleteAmi(
+                                    widget.idRelation.toString());
+                                setState(() {
+                                  _icon = Icons.add;
+                                });
                               }
-
-                              print("LA RELATION");
-                              print(widget.idRelation);
-                              AuthController.deleteAmi(
-                                  widget.idRelation.toString());
-                            },
-                            icon: Icon(
-                              _icon,
-                              color: CustomColors.MAIN_PURPLE,
-                              size: 20,
-                            ))
+                            }
+                          },
+                          icon: Icon(
+                            _icon,
+                            color: CustomColors.MAIN_PURPLE,
+                            size: 20,
+                          ),
+                        )
                       ],
                     ),
                     SizedBox(
