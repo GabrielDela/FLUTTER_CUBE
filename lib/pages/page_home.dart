@@ -66,7 +66,9 @@ class _PageHomeState extends State<PageHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: const HomeDrawer(),
-        appBar: const HomeAppBar(),
+        appBar: HomeAppBar(
+          text: "R CUBE",
+        ),
         body: PageActu());
   }
 }

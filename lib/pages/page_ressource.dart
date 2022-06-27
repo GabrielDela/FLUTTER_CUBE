@@ -20,6 +20,7 @@ class _PageRessourcesState extends State<PageRessources> {
   final Quill.QuillController _controllerImage = Quill.QuillController.basic();
   String id = "";
   TextEditingController titre = new TextEditingController();
+  TextEditingController image = new TextEditingController();
   TextEditingController description = new TextEditingController();
   bool _validateDescription = false;
   bool _validateTitre = false;
@@ -126,6 +127,39 @@ class _PageRessourcesState extends State<PageRessources> {
               ),
             ),
           ),
+          Text(
+            "Image",
+            style: TextStyle(
+                color: CustomColors.MAIN_PURPLE,
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Flexible(
+            child: Container(
+              width: queryData.size.width * 0.8,
+              padding: EdgeInsets.only(left: 5),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: TextField(
+                controller: image,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.black),
+                    ),
+                    hintText: 'Image',
+                    errorText: _validateImage ? "Ne peut pas être vide" : null,
+                    hintStyle: TextStyle(color: Colors.black),
+                    contentPadding: EdgeInsets.all(10),
+                    enabled: true),
+              ),
+            ),
+          ),
           SizedBox(
             height: 8,
           ),
@@ -151,28 +185,6 @@ class _PageRessourcesState extends State<PageRessources> {
               color: Colors.amber,
             ),
           ),
-          Text(
-            "Image",
-            style: TextStyle(
-                color: CustomColors.MAIN_PURPLE,
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-          ),
-          Quill.QuillToolbar.basic(
-            controller: _controllerImage,
-            multiRowsDisplay: false,
-            locale: Locale("fr"),
-          ),
-          Expanded(
-            child: Container(
-              height: 600,
-              child: Quill.QuillEditor.basic(
-                controller: _controllerImage,
-                readOnly: false, // true for view only mode
-              ),
-              color: Colors.amber,
-            ),
-          ),
           ElevatedButton(
             onPressed: () {
               setState(() {
@@ -185,7 +197,7 @@ class _PageRessourcesState extends State<PageRessources> {
                 _controller.document.isEmpty()
                     ? _validateContenu = true
                     : _validateContenu = false;
-                _controllerImage.document.isEmpty()
+                image.text.isEmpty
                     ? _validateImage = true
                     : _validateImage = false;
               });
@@ -193,12 +205,8 @@ class _PageRessourcesState extends State<PageRessources> {
                   !_validateContenu &&
                   !_validateDescription &&
                   !_validateTitre) {
-                AuthController.postRessource(
-                    titre.text,
-                    description.text,
-                    _controllerImage.document.toString(),
-                    _controller.document.toString(),
-                    id);
+                AuthController.postRessource(titre.text, description.text,
+                    image.text, _controller.document.toPlainText(), id);
               }
             },
             child: Text('Envoyer'),

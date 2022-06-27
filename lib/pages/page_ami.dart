@@ -72,10 +72,6 @@ class _PageAmiState extends State<PageAmi> {
                       ),
                       child: ListTile(
                         onTap: () {
-                          if (kDebugMode) {
-                            print("TAAAAAARTE");
-                            print(snapshot.data![index].user.email);
-                          }
                           Navigator.push(
                             context,
                             MaterialPageRoute(

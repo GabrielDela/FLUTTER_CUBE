@@ -2,8 +2,9 @@ import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatefulWidget with PreferredSizeWidget {
-  const HomeAppBar({Key? key}) : super(key: key);
+  final String text;
 
+  HomeAppBar({Key? key, required this.text}) : super(key: key);
   @override
   _HomeAppBarState createState() => _HomeAppBarState();
 
@@ -15,7 +16,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text("R CUBE"),
+      title: Text(widget.text),
       centerTitle: true,
       backgroundColor: CustomColors.MAIN_PURPLE,
       leading: Builder(

@@ -2,6 +2,7 @@ import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/classes/modeles/modele_Utilisateur.dart';
 import 'package:cube/controller/authController.dart';
+import 'package:cube/pages/page_modifierbio.dart';
 import 'package:flutter/material.dart';
 
 class PageProfil extends StatefulWidget {
@@ -14,67 +15,6 @@ class PageProfil extends StatefulWidget {
 }
 
 class _PageProfilState extends State<PageProfil> {
-  final List listeRessource = [
-    {
-      'nom': "Nathan Roberts",
-      'category': "Langue",
-      'date': '09/09/2022',
-      'description':
-          "Suspendisse lacinia, enim non tincidunt faucibus, turpis nulla laoreet erat, vitae commodo metus turpis a felis. .",
-      'image': "assets/images/img3.png",
-      'comment': 22,
-      'share': 4,
-      'like': 12
-    },
-    {
-      'nom': "NathRobets44",
-      'category': "Langue",
-      'date': '09/09/2022',
-      'description':
-          "Suspendisse lacinia, enim non tincidunt faucibus, turpis nulla laoreet erat, vitae commodo metus turpis a felis. .",
-      'image': "assets/images/img3.png",
-      'comment': 22,
-      'share': 4,
-      'like': 12
-    },
-    {
-      'nom': "@NathRobets44",
-      'category': "Langue",
-      'date': '09/09/2022',
-      'description':
-          "Suspendisse lacinia, enim non tincidunt faucibus, turpis nulla laoreet erat, vitae commodo metus turpis a felis. .",
-      'image': "assets/images/img3.png",
-      'comment': 22,
-      'share': 4,
-      'like': 12
-    },
-  ];
-
-  final List ListressourcePartagees = [
-    {
-      'nom': "@BessieCoop27",
-      'category': "Sport",
-      'date': '10/10/2022',
-      'description':
-          "Proin id dictum turpis, nec volutpat erat. Donec id ultrices quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;",
-      'image': "assets/images/img1.jpg",
-      'comment': 12,
-      'share': 4,
-      'like': 7
-    },
-    {
-      'nom': "@BessieCoop27",
-      'category': "Sport",
-      'date': '10/10/2022',
-      'description':
-          "Proin id dictum turpis, nec volutpat erat. Donec id ultrices quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;",
-      'image': "assets/images/img1.jpg",
-      'comment': 12,
-      'share': 4,
-      'like': 7
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
@@ -132,7 +72,14 @@ class _PageProfilState extends State<PageProfil> {
                               color: Colors.black),
                         ),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PageModifierBio(),
+                                ),
+                              );
+                            },
                             icon: Icon(
                               Icons.edit,
                               color: CustomColors.MAIN_PURPLE,
@@ -255,7 +202,20 @@ class _PageProfilState extends State<PageProfil> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      trailing: Text(snapshot.data![index].id),
+                                      trailing: IconButton(
+                                        onPressed: () {
+                                          AuthController.deleteRessource(
+                                              snapshot.data![index].id);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PageProfil(user: widget.user),
+                                            ),
+                                          );
+                                        },
+                                        icon: Icon(Icons.delete),
+                                      ),
                                     ),
                                   ),
                                 ),

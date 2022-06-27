@@ -1,6 +1,7 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:cube/classes/modeles/modele_Utilisateur.dart';
 import 'package:cube/controller/authController.dart';
+import 'package:cube/pages/page_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,9 +15,9 @@ class PageParametre extends StatefulWidget {
 }
 
 class _PageParametreState extends State<PageParametre> {
-  String id = "";
   TextEditingController mdp1 = new TextEditingController();
   TextEditingController mdp2 = new TextEditingController();
+  String id = "";
 
   getStringValuesSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -144,7 +145,6 @@ class _PageParametreState extends State<PageParametre> {
                             fontSize: 15, color: CustomColors.MAIN_PURPLE),
                       ),
                       onPressed: () {
-                        print("Sauvegarde");
                         AuthController.patchUser(id, mdp1.text, mdp2.text);
                       },
                       child: Text(
@@ -185,7 +185,16 @@ class _PageParametreState extends State<PageParametre> {
                         textStyle: TextStyle(
                             fontSize: 15, color: CustomColors.MAIN_PURPLE),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        print("essai");
+                        AuthController.deleteUserById(id);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PageAuth(),
+                          ),
+                        );
+                      },
                       child: Text(
                         "Supprimer le compte",
                         style: TextStyle(color: CustomColors.MAIN_PURPLE),

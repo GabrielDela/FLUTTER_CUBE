@@ -67,6 +67,13 @@ class AuthController {
     }
   }
 
+  static Future<bool> deleteUserById(String id) async {
+    dynamic response =
+        await http.delete(Uri.parse(base_url + "users/$id"), headers: header);
+    print(response.body);
+    return true;
+  }
+
   //Récupération des amis avec l'id de la personne
   static Future<List<Relations>> getAmis(String id) async {
     //Réutilisation du token dans les sharedPreferences
@@ -137,6 +144,12 @@ class AuthController {
     }
   }
 
+  static Future<bool> deleteRessource(String id) async {
+    dynamic response =
+        http.delete(Uri.parse(base_url + "resources/" + id), headers: header);
+    return true;
+  }
+
   static Future<List<Ressource>> getFavorisByUser(String idUser) async {
     final response = await http.get(
         Uri.parse(base_url + "resources/user/${idUser}/favorites"),
@@ -205,6 +218,15 @@ class AuthController {
     return false;
   }
 
+  static Future<bool> patchBiographie(String idUser, String bio) async {
+    Map data = {"biography": bio};
+    var body = json.encode(data);
+    dynamic response = await http.patch(Uri.parse(base_url + "users/" + idUser),
+        headers: header, body: body);
+    print(response.body);
+    return true;
+  }
+
   static Future<bool> postRessource(String titre, String description,
       String image, String contenu, String idUser) async {
     DateTime dateJour = DateTime.now();
@@ -214,14 +236,14 @@ class AuthController {
       "title": titre,
       "description": description,
       "image": image,
-      "content": jsonEncode(contenu),
+      "content": contenu,
       "user_id": idUser,
       "created_at": dateJour.toIso8601String()
     };
     var body = json.encode(data);
     final response = await http.post(Uri.parse(base_url + "resources"),
         headers: header, body: body);
-    print(response.body);
+    print(body);
     return true;
   }
 }

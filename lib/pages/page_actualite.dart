@@ -1,6 +1,7 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/controller/authController.dart';
+import 'package:cube/pages/page_detailressource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,8 +14,8 @@ class PageActu extends StatefulWidget {
 }
 
 class _PageActuState extends State<PageActu> {
-  String id = "";
   IconData _icon = Icons.favorite_outline;
+  String id = "";
 
   getStringValuesSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -69,6 +70,16 @@ class _PageActuState extends State<PageActu> {
                         child: Column(
                           children: [
                             ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PageDetailRessource(
+                                      ressource: snapshot.data![index],
+                                    ),
+                                  ),
+                                );
+                              },
                               title: Text(snapshot.data![index].title),
                               subtitle: Text(snapshot.data![index].description),
                               trailing: ElevatedButton(
@@ -76,8 +87,6 @@ class _PageActuState extends State<PageActu> {
                                   setState(() {
                                     _icon = Icons.favorite;
                                   });
-
-                                  print("ETOILE ${id}");
                                   AuthController.postFavoris(
                                       id, snapshot.data![index].id);
                                 },
