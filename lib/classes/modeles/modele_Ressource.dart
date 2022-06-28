@@ -19,10 +19,8 @@ class Ressource {
     required this.image,
     this.content,
     required this.userId,
-    required this.desactivated,
     required this.likes,
     required this.share,
-    required this.deleted,
     required this.categoryId,
     required this.typeId,
     required this.createdAt,
@@ -36,10 +34,8 @@ class Ressource {
   String image;
   String? content;
   String userId;
-  bool desactivated;
   int likes;
   int share;
-  bool deleted;
   dynamic? categoryId;
   dynamic? typeId;
   DateTime createdAt;
@@ -55,10 +51,8 @@ class Ressource {
       image: json["image"] as String,
       content: json["content"] as String?,
       userId: json["user_id"] as String,
-      desactivated: json["desactivated"] as bool,
       likes: json["likes"] as int,
       share: json["share"] as int,
-      deleted: json["deleted"] as bool,
       categoryId: json["category_id"] as String?,
       typeId: json["type_id"] as String?,
       createdAt: DateTime.parse(json["created_at"]) as DateTime,
@@ -74,10 +68,8 @@ class Ressource {
         "image": image,
         "content": content,
         "user_id": userId,
-        "desactivated": desactivated,
         "likes": likes,
         "share": share,
-        "deleted": deleted,
         "category_id": categoryId,
         "type_id": typeId,
         "created_at": createdAt.toIso8601String(),

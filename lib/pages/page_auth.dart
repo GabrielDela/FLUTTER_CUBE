@@ -44,55 +44,6 @@ class _PageAuthState extends State<PageAuth> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(bottom: 25),
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              child: OutlinedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.only(left: 70, right: 70),
-                  ),
-                  side: MaterialStateProperty.all(const BorderSide(
-                      color: Colors.black87,
-                      width: 1,
-                      style: BorderStyle.solid)),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0))),
-                ),
-                onPressed: () => {},
-                child: const Text(
-                  'Se connecter avec Google',
-                  style: TextStyle(color: Colors.black, fontSize: 18),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 25, bottom: 25),
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 2,
-                    color: Colors.white10,
-                    width: MediaQuery.of(context).size.width / 4,
-                  ),
-                  const Text(
-                    'OU',
-                    style: TextStyle(color: Colors.white54, fontSize: 18),
-                  ),
-                  Container(
-                    height: 2,
-                    color: Colors.white10,
-                    width: MediaQuery.of(context).size.width / 4,
-                  ),
-                ],
-              ),
-            ),
-            Container(
               margin: const EdgeInsets.only(top: 5, bottom: 15),
               child: TextField(
                 onChanged: (text) {
@@ -175,7 +126,26 @@ class _PageAuthState extends State<PageAuth> {
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0))),
                 ),
-                onPressed: () => {},
+                onPressed: () => {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Mot de passe oublié'),
+                      content: const Text(
+                          'Veuillez contacter un administrateur.\naircubehelpdesk@gmail.com'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Retour'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'OK'),
+                          child: const Text('Ok'),
+                        ),
+                      ],
+                    ),
+                  ),
+                },
                 child: const Text(
                   'Mot de passe oublié ?',
                   style: TextStyle(color: Colors.white54, fontSize: 18),

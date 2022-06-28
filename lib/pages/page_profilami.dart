@@ -151,7 +151,7 @@ class _PageProfilAmiState extends State<PageProfilAmi> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 290,
+                          width: 250,
                         ),
                         FutureBuilder<int>(
                           future: AuthController.getNumberAmis(widget.user.id),
@@ -246,27 +246,6 @@ class _PageProfilAmiState extends State<PageProfilAmi> {
                             ));
                   }
                 },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Text(
-                      "Ressources partagées",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 25,
-                          color: CustomColors.MAIN_PURPLE),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cube/classes/modeles/modele_Commentaire.dart';
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/classes/modeles/modele_Relation.dart';
 import 'package:cube/classes/modeles/modele_Utilisateur.dart';
@@ -137,6 +138,8 @@ class AuthController {
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+      print("LE TEST");
+      print(parsed[0]);
       return parsed.map<Ressource>((json) => Ressource.fromJson(json)).toList();
     } else {
       throw Exception(
@@ -245,5 +248,26 @@ class AuthController {
         headers: header, body: body);
     print(body);
     return true;
+  }
+
+  static Future<List<Commentaire>> getCommentaires(String idRessource) async {
+    final response =
+        await http.get(Uri.parse(base_url + "comments"), headers: header);
+    if (response.statusCode == 200) {
+      final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
+      return parsed
+          .map<Commentaire>((json) => Commentaire.fromJson(json))
+          .toList();
+    } else {
+      throw Exception(
+          "Erreur dans la récupération des commentaires de la ressource authController.getCommentaires");
+    }
+  }
+
+  static Future<int> getNumberComments(String idRessource) async {
+    int nombreComments = 0;
+    List<Commentaire> lesRessources = await getCommentaires(idRessource);
+    nombreComments = lesRessources.length;
+    return nombreComments;
   }
 }

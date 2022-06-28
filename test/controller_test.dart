@@ -1,4 +1,5 @@
 import 'package:cube/classes/modeles/modele_Relation.dart';
+import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/controller/authController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -39,21 +40,67 @@ void main() {
         "62b98bce9210cfc53e84bbde", "629ca2be859e064abfdbd434");
     expect(supprFavoris, true);
   });
-  // TODO:test add user
+
   test("ajout d'un user", () async {
-    final supprFavoris = await AuthController.deleteFavoris(
-        "62b98bce9210cfc53e84bbde", "629ca2be859e064abfdbd434");
-    expect(supprFavoris, true);
+    final bool = await AuthController.addUser(
+        "mail@user.fr", 22, "nom", "prenom", "pwd1", "pwd1");
+    expect(bool, true);
   });
-  // TODO:test patch user
   test("patch d'un user", () async {
-    final supprFavoris = await AuthController.deleteFavoris(
-        "62b98bce9210cfc53e84bbde", "629ca2be859e064abfdbd434");
-    expect(supprFavoris, true);
+    final modifUser = await AuthController.patchUser(
+        "62a7083197dfc7fd9a477f8b", "mdp1", "mdp1");
+    expect(modifUser, true);
   });
   test("post d'une ressource", () async {
     final postRessource = await AuthController.postRessource("le titre",
         "la description", "l'image", "le contenu", "62b98bce9210cfc53e84bbde");
     expect(postRessource, true);
+  });
+
+  test("nombre d'amis", () async {
+    final nbAmis =
+        await AuthController.getNumberAmis("62b98bce9210cfc53e84bbde");
+    expect(nbAmis, int);
+  });
+
+  test("modification de la bio", () async {
+    final modifBio = await AuthController.patchBiographie(
+        "62b98bce9210cfc53e84bbde", "la nouvelle bio");
+    expect(modifBio, true);
+  });
+
+  // test sur les gets avec retour de list
+  test("recup fav", () async {
+    final favorisUser =
+        await AuthController.getFavorisByUser("62b98bce9210cfc53e84bbde");
+    expect(favorisUser, List<Ressource>);
+  });
+
+  test("recup resource", () async {
+    final ressources = await AuthController.getRessources();
+    expect(ressources, List<Ressource>);
+  });
+
+  test("recup resource d'un user", () async {
+    final ressourcesUser =
+        await AuthController.getFavorisByUser("62b98bce9210cfc53e84bbde");
+    expect(ressourcesUser, List<Ressource>);
+  });
+
+  test("get les amis d'un user ", () async {
+    final amisUser = await AuthController.getAmis("62b98bce9210cfc53e84bbde");
+    expect(amisUser, List<Relations>);
+  });
+
+  // test sur login et auth
+  test("test login ", () async {
+    final loginTest =
+        await AuthController.login("mailusertest@mail.fr", "monsuperpwd");
+    expect(loginTest, bool);
+  });
+
+  test("test auth ", () async {
+    final authTest = await AuthController.me();
+    expect(authTest, dynamic);
   });
 }

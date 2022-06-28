@@ -1,8 +1,14 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
+import 'package:cube/classes/modeles/modele_Commentaire.dart';
+import 'package:cube/classes/modeles/modele_Utilisateur.dart';
+import 'package:cube/controller/authController.dart';
 import 'package:flutter/material.dart';
 
 class PageCommentaire extends StatefulWidget {
-  const PageCommentaire({Key? key}) : super(key: key);
+  final idRessource;
+
+  const PageCommentaire({Key? key, required this.idRessource})
+      : super(key: key);
 
   @override
   _PageCommentaireState createState() => _PageCommentaireState();
@@ -42,94 +48,74 @@ class _PageCommentaireState extends State<PageCommentaire> {
         backgroundColor: CustomColors.MAIN_PURPLE,
       ),
       //backgroundColor: Colors.grey.shade200,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 50,
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Text(
-                      "La cuisine par Bessie Cooper @BessCoop999",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: CustomColors.MAIN_PURPLE),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  for (var commentaire in listCommentaire)
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 3.0),
-                      child: Container(
-                        height: 220,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.white,
-                                blurRadius: 2,
-                                offset: Offset(0, 1)),
-                          ],
-                          borderRadius: BorderRadius.all(Radius.circular(25)),
-                        ),
+      body: Container(
+        child: FutureBuilder<List<Commentaire>>(
+          future: AuthController.getCommentaires(widget.idRessource),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<Commentaire>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: Text('Chargement'));
+            } else {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              }
+              return ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: snapshot.data!.length,
+                itemBuilder: (_, index) {
+                  return Container(
+                    child: Card(
+                      elevation: 4.0,
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
                         child: Column(
                           children: [
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CircleAvatar(
-                                    radius: 30,
-                                    backgroundColor: Colors.transparent,
-                                    child: ClipOval(
-                                      child: Image.asset(
-                                        commentaire['image'],
+                            FutureBuilder<Users>(
+                              future: AuthController.getUserById(
+                                  snapshot.data![index].idUser),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<Users> osnapshot) {
+                                if (osnapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                    child: Text("Chargement"),
+                                  );
+                                } else {
+                                  if (osnapshot.hasError) {
+                                    return Center(
+                                      child: Text("Error: ${osnapshot.error}"),
+                                    );
+                                  }
+                                  return ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.transparent,
+                                      child: ClipOval(
+                                        child: (osnapshot.data!.avatar != null
+                                            ? Image.network(osnapshot
+                                                .data!.avatar
+                                                .toString())
+                                            : Image.asset(
+                                                "assets/images/avatarfemale.jpg")),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    commentaire['tag'],
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ]),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: queryData.size.width * 0.95,
-                                  height: 150,
-                                  child: Text(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ornare est diam, et commodo ipsum egestas et. Suspendisse id nunc lectus. Donec elementum ipsum quis libero scelerisque, eu consequat enim viverra. Curabitur euismod fringilla purus cursus ultricies. Maecenas porta lacinia nisl et efficitur. Etiam hendrerit nec risus at laoreet. Fusce vitae sagittis diam, et consequat nulla.",
-                                    textDirection: TextDirection.ltr,
-                                    textAlign: TextAlign.justify,
-                                    style: new TextStyle(
-                                      fontSize: 12,
-                                    ),
-                                    maxLines: 10,
-                                  ),
-                                ),
-                              ],
+                                    title: Text(osnapshot.data!.tag),
+                                    subtitle:
+                                        Text(snapshot.data![index].comment),
+                                  );
+                                }
+                              },
                             )
                           ],
                         ),
                       ),
-                    )
-                ],
-              ),
-            )
-          ],
+                    ),
+                  );
+                },
+              );
+            }
+          },
         ),
       ),
     );

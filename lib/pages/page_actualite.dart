@@ -1,6 +1,8 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
+import 'package:cube/classes/modeles/modele_Commentaire.dart';
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/controller/authController.dart';
+import 'package:cube/pages/page_commentaire.dart';
 import 'package:cube/pages/page_detailressource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -121,7 +123,16 @@ class _PageActuState extends State<PageActu> {
                                 Text(snapshot.data![index].share.toString()),
                                 IconButton(
                                   icon: Icon(Icons.comment),
-                                  onPressed: () {/* ... */},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PageCommentaire(
+                                          idRessource: snapshot.data![index].id,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                                 Text(
                                     /*snapshot.data![index].likes
