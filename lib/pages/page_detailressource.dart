@@ -2,6 +2,7 @@ import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/classes/modeles/modele_Utilisateur.dart';
 import 'package:cube/controller/authController.dart';
+import 'package:cube/pages/page_commentaire.dart';
 import 'package:cube/pages/page_profilami.dart';
 import 'package:cube/widgets/Home/HomeAppBar.dart';
 import 'package:flutter/material.dart';
@@ -48,97 +49,107 @@ class _PageDetailRessourceState extends State<PageDetailRessource> {
         child: Card(
           elevation: 4.0,
           child: Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                FutureBuilder<Users>(
-                    future: AuthController.getUserById(widget.ressource.userId),
-                    builder:
-                        (BuildContext context, AsyncSnapshot<Users> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: Text('Chargement'));
-                      } else {
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Text('Error: ${snapshot.error}'),
-                          );
-                        }
-                        return ListTile(
-                          trailing: IconButton(
-                            onPressed: () {
-                              AuthController.addAmi(id, snapshot.data!.id);
-                              final snackBar = SnackBar(
-                                content: const Text('Ajouté(e) !'),
-                                action: SnackBarAction(
-                                  label: 'Ok',
-                                  onPressed: () {
-                                    // Some code to undo the change.
-                                  },
-                                ),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            },
-                            icon: Icon(Icons.add),
-                          ),
-                          leading: CircleAvatar(
-                            maxRadius: 50,
-                            minRadius: 30,
-                            backgroundColor: Colors.transparent,
-                            child: ClipOval(
-                              child: (snapshot.data!.avatar != null
-                                  ? Image.network(
-                                      snapshot.data!.avatar.toString())
-                                  : Image.asset(
-                                      "assets/images/avatarfemale.jpg")),
-                            ),
-                          ),
-                          title: Text(
-                              "${snapshot.data!.firstname} ${snapshot.data!.lastname}"),
-                          subtitle: Text(snapshot.data!.tag),
-                        );
-                      }
-                    }),
-                ListTile(
-                  title: Text(widget.ressource.title),
-                  subtitle: Text(widget.ressource.description),
-                ),
-                Container(
-                  height: 200.0,
-                  child: Html(
-                    data: widget.ressource.content,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(16.0),
-                  alignment: Alignment.centerLeft,
-                  child: Text(widget.ressource.status),
-                ),
-                ButtonBar(
+              padding: EdgeInsets.all(10),
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    IconButton(
-                      onPressed: () {/* ... */},
-                      icon: Icon(Icons.share),
+                    FutureBuilder<Users>(
+                        future:
+                            AuthController.getUserById(widget.ressource.userId),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<Users> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: Text('Chargement'));
+                          } else {
+                            if (snapshot.hasError) {
+                              return Center(
+                                child: Text('Error: ${snapshot.error}'),
+                              );
+                            }
+                            return ListTile(
+                              trailing: IconButton(
+                                onPressed: () {
+                                  AuthController.addAmi(id, snapshot.data!.id);
+                                  final snackBar = SnackBar(
+                                    content: const Text('Ajouté(e) !'),
+                                    action: SnackBarAction(
+                                      label: 'Ok',
+                                      onPressed: () {
+                                        // Some code to undo the change.
+                                      },
+                                    ),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                },
+                                icon: Icon(Icons.add),
+                              ),
+                              leading: CircleAvatar(
+                                maxRadius: 50,
+                                minRadius: 30,
+                                backgroundColor: Colors.transparent,
+                                child: ClipOval(
+                                  child: (snapshot.data!.avatar != null
+                                      ? Image.network(
+                                          snapshot.data!.avatar.toString())
+                                      : Image.asset(
+                                          "assets/images/avatarfemale.jpg")),
+                                ),
+                              ),
+                              title: Text(
+                                  "${snapshot.data!.firstname} ${snapshot.data!.lastname}"),
+                              subtitle: Text(snapshot.data!.tag),
+                            );
+                          }
+                        }),
+                    ListTile(
+                      title: Text(widget.ressource.title),
+                      subtitle: Text(widget.ressource.description),
                     ),
-                    Text(widget.ressource.share.toString()),
-                    IconButton(
-                      icon: Icon(Icons.comment),
-                      onPressed: () {/* ... */},
+                    Container(
+                      child: Html(
+                        data: widget.ressource.content,
+                      ),
                     ),
-                    Text(
-                        /*snapshot.data![index].likes
-                                                .toString()*/
-                        "0"),
-                    IconButton(
-                      icon: Icon(Icons.thumb_up),
-                      onPressed: () {/* ... */},
+                    ButtonBar(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.comment),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PageCommentaire(
+                                  idRessource: widget.ressource.id,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        FutureBuilder<int>(
+                          future: AuthController.getNumberComments(
+                              widget.ressource.id),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<int> osnapshot) {
+                            if (osnapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: Text('Chargement'));
+                            } else {
+                              if (osnapshot.hasError) {
+                                return Center(
+                                  child: Text('Error: ${osnapshot.error}'),
+                                );
+                              }
+                              return Text(osnapshot.data.toString());
+                            }
+                          },
+                        )
+                      ],
                     ),
-                    Text(widget.ressource.likes.toString())
                   ],
                 ),
-              ],
-            ),
-          ),
+              )),
         ),
       ),
     );

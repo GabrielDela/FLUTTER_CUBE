@@ -15,26 +15,6 @@ class PageCommentaire extends StatefulWidget {
 }
 
 class _PageCommentaireState extends State<PageCommentaire> {
-  final List listCommentaire = [
-    {
-      'tag': '@RobertNath044',
-      'image': 'assets/images/avatarmale.jpg',
-      'text':
-          'Mauris sit amet erat vitae odio accumsan viverra ac ut libero. Ut luctus odio blandit mollis finibus.'
-    },
-    {
-      'tag': '@StanSmith027',
-      'image': 'assets/images/avatarmale2.jpg',
-      'text':
-          'Sed eu varius diam. Proin arcu leo, rutrum et odio sit amet, cursus laoreet urna.'
-    },
-    {
-      'tag': '@BessCoop999',
-      'image': 'assets/images/avatarfemale.jpg',
-      'text':
-          'Duis ullamcorper nunc et ex pulvinar, nec egestas ante aliquam. Donec eros ipsum, mollis sit amet laoreet quis, fermentum at massa.'
-    },
-  ];
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
@@ -43,7 +23,7 @@ class _PageCommentaireState extends State<PageCommentaire> {
       //évite lors de l'utilisation du clavier pour les champs texte les problèmes de bottom over flow sur les pages
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Commentaire de la ressource"),
+        title: const Text("Commentaires de la ressource"),
         centerTitle: true,
         backgroundColor: CustomColors.MAIN_PURPLE,
       ),
