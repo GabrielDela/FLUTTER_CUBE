@@ -83,9 +83,10 @@ class _PageAmiState extends State<PageAmi> {
                           );
                         },
                         leading: ClipOval(
-                          child: Image.asset(
-                            'assets/images/avatarfemale.jpg',
-                          ),
+                          child: (snapshot.data![index].user.avatar != null
+                              ? Image.network(
+                                  snapshot.data![index].user.avatar.toString())
+                              : Image.asset("assets/images/avatarfemale.jpg")),
                         ),
                         title: Text(snapshot.data![index].user.lastname +
                             " " +
@@ -101,8 +102,6 @@ class _PageAmiState extends State<PageAmi> {
                             color: Colors.white,
                           ),
                           onPressed: () async {
-                            print("*************************************oui");
-                            //print(ami.relationId);
                             await AuthController.deleteAmi(
                                 snapshot.data![index].id);
                             Navigator.pop(context); // pop current page

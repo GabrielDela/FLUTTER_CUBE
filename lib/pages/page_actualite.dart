@@ -108,7 +108,7 @@ class _PageActuState extends State<PageActu> {
                               child: Html(
                                 data: snapshot.data![index].content!.length >=
                                         403
-                                    ? ("${snapshot.data![index].content?.substring(0, 403)} ...")
+                                    ? ("${snapshot.data![index].content?.substring(0, 403)}...")
                                     : (snapshot.data![index].content),
                               ),
                             ),

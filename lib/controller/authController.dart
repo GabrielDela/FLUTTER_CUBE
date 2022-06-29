@@ -271,4 +271,17 @@ class AuthController {
     nombreComments = lesRessources.length;
     return nombreComments;
   }
+
+  static Future<bool> postComment(
+      String idUser, String idRessource, String commentaire) async {
+    Map data = {
+      "id_resource": idRessource,
+      "id_user": idUser,
+      "comment": commentaire
+    };
+    var body = json.encode(data);
+    dynamic response = await http.post(Uri.parse(base_url + "comments"),
+        headers: header, body: body);
+    return true;
+  }
 }

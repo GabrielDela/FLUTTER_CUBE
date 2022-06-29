@@ -1,7 +1,10 @@
 import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:cube/controller/authController.dart';
+import 'package:cube/pages/page_profil.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../classes/modeles/modele_Utilisateur.dart';
 
 class PageModifierBio extends StatefulWidget {
   const PageModifierBio({Key? key}) : super(key: key);
@@ -96,9 +99,9 @@ class _PageModifierBioState extends State<PageModifierBio> {
                   final snackBar = SnackBar(
                     content: const Text('Sauvegarde effectuée !'),
                     action: SnackBarAction(
-                      label: 'Ok',
+                      label: 'Retour au profil',
                       onPressed: () {
-                        // Some code to undo the change.
+                        Navigator.pop(context);
                       },
                     ),
                   );

@@ -153,9 +153,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PageProfil(
-                            user: snapshot.data!,
-                          ),
+                          builder: (context) => PageProfil(),
                         ),
                       );
                     },

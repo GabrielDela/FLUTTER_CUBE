@@ -1,9 +1,11 @@
 import 'package:cube/pages/page_ami.dart';
 import 'package:cube/pages/page_auth.dart';
+import 'package:cube/pages/page_commentaire.dart';
 import 'package:cube/pages/page_favoris.dart';
 import 'package:cube/pages/page_inscription.dart';
-import 'package:cube/pages/page_profilami.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +18,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
     // This makes the visual density adapt to the platform that you run
     // the app on. For desktop platforms, the controls will be smaller and
     // closer together (more dense) than on mobile platforms.
@@ -29,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/amis': (context) => PageAmi(),
         '/favoris': (context) => PageFavoris(),
         '/inscription': (context) => PageInscription(),
+        '/commentaires': (context) => PageCommentaire(idRessource: null)
         // '/profil_ami': (context) => PageProfilAmi(),
       },
       debugShowCheckedModeBanner: false,

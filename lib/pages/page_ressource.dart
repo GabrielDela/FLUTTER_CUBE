@@ -17,7 +17,6 @@ class _PageRessourcesState extends State<PageRessources> {
   //String dropdownValue = 'One';
   // l'utilisation de l'alias est obligatoire  pour  l'utilisation de tout les widget de quill
   final Quill.QuillController _controller = Quill.QuillController.basic();
-  final Quill.QuillController _controllerImage = Quill.QuillController.basic();
   String id = "";
   TextEditingController titre = new TextEditingController();
   TextEditingController image = new TextEditingController();

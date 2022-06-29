@@ -2,6 +2,7 @@ import 'package:cube/classes/couleurs/classe_colors.dart';
 import 'package:cube/classes/modeles/modele_Ressource.dart';
 import 'package:cube/classes/modeles/modele_Utilisateur.dart';
 import 'package:cube/controller/authController.dart';
+import 'package:cube/pages/page_commentaire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -110,31 +111,42 @@ class _PageFavorisState extends State<PageFavoris> {
                                   data: snapshot.data![index].content,
                                 ),
                               ),
-                              Container(
-                                padding: EdgeInsets.all(16.0),
-                                alignment: Alignment.centerLeft,
-                                child: Text(snapshot.data![index].status),
-                              ),
                               ButtonBar(
                                 children: [
                                   IconButton(
-                                    onPressed: () {/* ... */},
-                                    icon: Icon(Icons.share),
-                                  ),
-                                  Text(snapshot.data![index].share.toString()),
-                                  IconButton(
                                     icon: Icon(Icons.comment),
-                                    onPressed: () {/* ... */},
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PageCommentaire(
+                                            idRessource:
+                                                snapshot.data![index].id,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                  Text(
-                                      /*snapshot.data![index].likes
-                                                .toString()*/
-                                      "0"),
-                                  IconButton(
-                                    icon: Icon(Icons.thumb_up),
-                                    onPressed: () {/* ... */},
-                                  ),
-                                  Text(snapshot.data![index].likes.toString())
+                                  FutureBuilder<int>(
+                                    future: AuthController.getNumberComments(
+                                        snapshot.data![index].id),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<int> osnapshot) {
+                                      if (osnapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                            child: Text('Chargement'));
+                                      } else {
+                                        if (osnapshot.hasError) {
+                                          return Center(
+                                            child: Text(
+                                                'Error: ${osnapshot.error}'),
+                                          );
+                                        }
+                                        return Text(osnapshot.data.toString());
+                                      }
+                                    },
+                                  )
                                 ],
                               )
                             ],
