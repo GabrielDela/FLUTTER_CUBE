@@ -106,21 +106,14 @@ class _PageActuState extends State<PageActu> {
                             Container(
                               height: 200.0,
                               child: Html(
-                                data: snapshot.data![index].content,
+                                data: snapshot.data![index].content!.length >=
+                                        403
+                                    ? ("${snapshot.data![index].content?.substring(0, 403)} ...")
+                                    : (snapshot.data![index].content),
                               ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(16.0),
-                              alignment: Alignment.centerLeft,
-                              child: Text(snapshot.data![index].status),
                             ),
                             ButtonBar(
                               children: [
-                                IconButton(
-                                  onPressed: () {/* ... */},
-                                  icon: Icon(Icons.share),
-                                ),
-                                Text(snapshot.data![index].share.toString()),
                                 IconButton(
                                   icon: Icon(Icons.comment),
                                   onPressed: () {
@@ -134,15 +127,25 @@ class _PageActuState extends State<PageActu> {
                                     );
                                   },
                                 ),
-                                Text(
-                                    /*snapshot.data![index].likes
-                                                .toString()*/
-                                    "0"),
-                                IconButton(
-                                  icon: Icon(Icons.thumb_up),
-                                  onPressed: () {/* ... */},
-                                ),
-                                Text(snapshot.data![index].likes.toString())
+                                FutureBuilder<int>(
+                                  future: AuthController.getNumberComments(
+                                      snapshot.data![index].id),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<int> osnapshot) {
+                                    if (osnapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(child: Text('Chargement'));
+                                    } else {
+                                      if (osnapshot.hasError) {
+                                        return Center(
+                                          child:
+                                              Text('Error: ${osnapshot.error}'),
+                                        );
+                                      }
+                                      return Text(osnapshot.data.toString());
+                                    }
+                                  },
+                                )
                               ],
                             )
                           ],

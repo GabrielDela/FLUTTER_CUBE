@@ -251,8 +251,9 @@ class AuthController {
   }
 
   static Future<List<Commentaire>> getCommentaires(String idRessource) async {
-    final response =
-        await http.get(Uri.parse(base_url + "comments"), headers: header);
+    final response = await http.get(
+        Uri.parse(base_url + "comments/latest/" + idRessource),
+        headers: header);
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
       return parsed
