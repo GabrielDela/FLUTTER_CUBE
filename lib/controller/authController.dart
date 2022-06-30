@@ -71,7 +71,6 @@ class AuthController {
   static Future<bool> deleteUserById(String id) async {
     dynamic response =
         await http.delete(Uri.parse(base_url + "users/$id"), headers: header);
-    print(response.body);
     return true;
   }
 
@@ -138,8 +137,7 @@ class AuthController {
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
-      print("LE TEST");
-      print(parsed[0]);
+
       return parsed.map<Ressource>((json) => Ressource.fromJson(json)).toList();
     } else {
       throw Exception(
@@ -172,7 +170,6 @@ class AuthController {
     final response = await http.post(
         Uri.parse(base_url + "users/" + idUser + "/favorites/" + idRessource),
         headers: header);
-    print("LES FAVVVV");
     return true;
   }
 
@@ -227,7 +224,6 @@ class AuthController {
     var body = json.encode(data);
     dynamic response = await http.patch(Uri.parse(base_url + "users/" + idUser),
         headers: header, body: body);
-    print(response.body);
     return true;
   }
 
@@ -235,7 +231,6 @@ class AuthController {
       String image, String contenu, String idUser) async {
     DateTime dateJour = DateTime.now();
 
-    print("ICI");
     Map data = {
       "title": titre,
       "description": description,
@@ -247,7 +242,6 @@ class AuthController {
     var body = json.encode(data);
     final response = await http.post(Uri.parse(base_url + "resources"),
         headers: header, body: body);
-    print(body);
     return true;
   }
 
