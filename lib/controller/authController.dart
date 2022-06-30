@@ -148,8 +148,9 @@ class AuthController {
   }
 
   static Future<bool> deleteRessource(String id) async {
-    dynamic response =
-        http.delete(Uri.parse(base_url + "resources/" + id), headers: header);
+    dynamic response = http.delete(
+        Uri.parse(base_url + "resources/" + id + "/end"),
+        headers: header);
     return true;
   }
 

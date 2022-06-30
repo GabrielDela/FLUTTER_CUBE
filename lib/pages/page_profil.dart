@@ -17,7 +17,7 @@ class PageProfil extends StatefulWidget {
 }
 
 class _PageProfilState extends State<PageProfil> {
-  IconData _icon = Icons.favorite_outline;
+  IconData _icon = Icons.delete;
   String id = "";
 
   getStringValuesSF() async {
@@ -247,10 +247,10 @@ class _PageProfilState extends State<PageProfil> {
                                   trailing: ElevatedButton(
                                     onPressed: () {
                                       setState(() {
-                                        _icon = Icons.favorite;
+                                        _icon = Icons.delete;
                                       });
-                                      AuthController.postFavoris(
-                                          id, snapshot.data![index].id);
+                                      AuthController.deleteRessource(
+                                          snapshot.data![index].id);
                                     },
                                     child: Icon(
                                       _icon,

@@ -31,7 +31,7 @@ class _PageCommentaireState extends State<PageCommentaire> {
   }
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     getStringValuesSF();
   }
